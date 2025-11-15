@@ -1,0 +1,120 @@
+<div class="auth-page d-flex align-items-center justify-content-center">
+  <div class="auth-card">
+    <!-- Logo Section -->
+    <div class="login-logo">
+      <img src="./assets/images/dat-logo-1.png" alt="Logo">
+    </div>
+
+    <!-- Title -->
+    <h2 class="auth-title">Create Your Account</h2>
+
+    <!-- Form -->
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+
+      <!-- Username -->
+      <div class="form-group with-icon">
+        <i class="icon fas fa-user"></i>
+        <input
+          type="text"
+          formControlName="username"
+          placeholder="Username"
+          [class.is-invalid]="f['username'].invalid && f['username'].touched"
+          required>
+        <div class="error-message" *ngIf="f['username'].invalid && f['username'].touched">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group with-icon">
+        <i class="icon fas fa-envelope"></i>
+        <input
+          type="email"
+          formControlName="mailId"
+          placeholder="Email"
+          [class.is-invalid]="f['mailId'].invalid && f['mailId'].touched"
+          required>
+        <div class="error-message" *ngIf="f['mailId'].invalid && f['mailId'].touched">
+          Enter a valid email address
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group with-icon">
+        <i class="icon fas fa-lock"></i>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Password"
+          [class.is-invalid]="f['password'].invalid && f['password'].touched"
+          required>
+        <button type="button" class="peek" (click)="showPassword = !showPassword">
+          <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </button>
+        <div class="error-message" *ngIf="f['password'].invalid && f['password'].touched">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group with-icon">
+        <i class="icon fas fa-lock"></i>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          placeholder="Confirm Password"
+          [class.is-invalid]="f['confirmPassword'].invalid && f['confirmPassword'].touched"
+          required>
+          <button type="button" class="peek" (click)="showPassword = !showPassword">
+          <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </button>
+        <div class="error-message" *ngIf="f['confirmPassword'].errors?.['required'] && f['confirmPassword'].touched">
+          Confirm Password is required
+        </div>
+        <div class="error-message" *ngIf="signupForm.errors?.['passwordMismatch'] && f['confirmPassword'].touched">
+          Passwords do not match
+        </div>
+      </div>
+
+  
+
+      <!-- Employee ID -->
+      <!-- <div class="form-group with-icon">
+        <i class="icon fas fa-id-badge"></i>
+        <input
+          type="text"
+          formControlName="employeeId"
+          placeholder="Employee ID"
+          [class.is-invalid]="f['employeeId'].invalid && f['employeeId'].touched"
+          required>
+        <div class="error-message" *ngIf="f['employeeId'].invalid && f['employeeId'].touched">
+          Employee ID is required
+        </div>
+      </div> -->
+
+      <!-- Designation -->
+      <!-- <div class="form-group with-icon">
+        <i class="icon fas fa-briefcase"></i>
+        <input
+          type="text"
+          formControlName="designation"
+          placeholder="Designation"
+          [class.is-invalid]="f['designation'].invalid && f['designation'].touched"
+          required>
+        <div class="error-message" *ngIf="f['designation'].invalid && f['designation'].touched">
+          Designation is required
+        </div>
+      </div> -->
+
+      <!-- Submit Button -->
+      <button type="submit" class="login-btn" [disabled]="signupForm.invalid">
+        Sign Up
+      </button>
+    </form>
+
+    <!-- Link -->
+    <p class="signup-link">
+      Already have an account?
+      <a [routerLink]="['/login']">Log in</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="build-container" *ngIf="showSummary">
+  <!-- <h2>Executive Summary</h2> -->
+  <h3 *ngIf="total_sitelinks_analysis !== 0">
+    Accounts: {{ unique_account_analysis }}<br>
+    Expired Site link: {{ total_sitelinks_analysis }}
+  </h3>
+
+  <h3 *ngIf="total_sitelinks_analysis === 0">
+    There are no expired sitelinks.
+  </h3>
+
+
+  <div *ngIf="!loading && !error" class="table-container">
+    <div class="table-wrapper" *ngIf="top_accounts_analysis as ta">
+      <div class="row">
+        <div class="col-md-5">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>S. No</th>
+                <th>Account Name</th>
+                <th class="text-end">Expired Sitelinks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of ta; let i = index; trackBy: trackByAccount">
+                <td>{{ i + 1 }}</td>
+                <td>{{ row.account_name || row.AccountName }}</td>
+                <td class="text-end">{{ row.expired_sitelinks || row.row_count | number }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- zero-active-ads.html -->
+<div class="build-container">
+
+  <!-- Header Section -->
+  <div class="header-section">
+    <!-- <h2>Expired Site Link</h2> -->
+    <div class="action-buttons">
+      <button class="btn btn-export" (click)="exportToExcel()" [disabled]="loading || adsData.length === 0">
+        <!-- <i class="fas fa-file-excel"></i> -->
+        Download
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading ads data...</p>
+  </div>
+
+  <!-- Data Table -->
+  <div *ngIf="!loading && !error" class="table-container">
+
+    <!-- Table -->
+    <div class="table-wrapper" *ngIf="adsData.length > 0">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>S. No</th>
+            <th *ngFor="let column of columns">{{ column | titlecase }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of adsData; let i = index">
+            <td class="row-number">{{ i + 1 }}</td>
+            <td *ngFor="let column of columns" [title]="formatCellData(item[column])">
+              {{ formatCellData(item[column]) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- No Data State -->
+    <div *ngIf="adsData.length === 0" class="no-data">
+      <i class="fas fa-inbox"></i>
+      <h3>No Data Available</h3>
+      <!-- <p>There are no zero active ads to display at the moment.</p> -->
+    </div>
+
+  </div>
+</div>

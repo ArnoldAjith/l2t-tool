@@ -1,0 +1,109 @@
+<div class="build-container" *ngIf="showSummary">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="table-wrapper">
+        <h3>Non Performing Accounts</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>% True Leads Difference MoM</th>
+              <th class="text-end">Accounts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let kv of nonPerforming | keyvalue : keyCompare">
+              <td>{{ kv.key }}</td>
+              <td class="text-end">{{ kv.value | number }}</td>
+            </tr>
+            <tr class="table-class">
+              <td>Total</td>
+              <td class="text-end">{{ totalAccountsForNonPerforming | number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- </div> -->
+    </div>
+    <div class="col-md-5">
+      <div class="table-wrapper">
+        <h3>Performing Accounts</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <!-- <th style="width: 56px;"></th> -->
+              <th>% True Leads Difference MoM</th>
+              <th class="text-end">Accounts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let kv of performaing | keyvalue : keyCompare">
+              <td>{{ kv.key }}</td>
+              <td class="text-end">{{ kv.value | number }}</td>
+            </tr>
+            <tr class="table-class">
+              <td>Total</td>
+              <td class="text-end">{{ totalAccountsofPerforming | number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <br>
+</div>
+
+<!-- zero-active-ads.html -->
+<div class="build-container">
+
+  <!-- Header Section -->
+  <div class="header-section">
+    <!-- <h2>Conversion Checker</h2> -->
+    <div class="action-buttons">
+      <button class="btn btn-export" (click)="exportToExcel()" [disabled]="loading || adsData.length === 0">
+        <!-- <i class="fas fa-file-excel"></i> -->
+        Download
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading ads data...</p>
+  </div>
+
+  <!-- Data Table -->
+  <div *ngIf="!loading && !error" class="table-container">
+
+    <!-- Table -->
+    <div class="table-wrapper" *ngIf="adsData.length > 0">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>S. No</th>
+            <th *ngFor="let column of columns">{{ column | titlecase }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of adsData; let i = index">
+            <td class="row-number">{{ i + 1 }}</td>
+            <td *ngFor="let column of columns" [title]="formatCellData(item[column])">
+              {{ formatCellData(item[column]) }}
+              <!-- {{column}} -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- No Data State -->
+    <div *ngIf="adsData.length === 0" class="no-data">
+      <i class="fas fa-inbox"></i>
+      <h3>No Data Available</h3>
+      <!-- <p>There are no zero active ads to display at the moment.</p> -->
+    </div>
+
+  </div>
+
+</div>

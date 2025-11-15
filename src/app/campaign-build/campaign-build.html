@@ -1,0 +1,382 @@
+<div class="small-bg">
+  <nav class="nav-tabs">
+    <button class="nav-tab" [class.active]="activeTab === 'generator'" (click)="switchTab('generator')">
+      <img src="/assets/images/campaign.png" />
+      Campaign Generator
+    </button>
+    <button class="nav-tab" [class.active]="activeTab === 'editor'" (click)="switchTab('editor')">
+      <img src="/assets/images/update.png" />
+      Campaign Update
+    </button>
+  </nav>
+</div>
+
+<div *ngIf="activeTab === 'generator'" class="tab-content">
+  <div class="build-container-cont">
+    <form id="generatorForm" [formGroup]="generatorForm" (ngSubmit)="handleGeneratorSubmit()">
+      <div class="row">
+        <div class="form-group">
+          <label for="account">Account Name</label>
+          <select id="account" class="form-select" formControlName="account" (change)="onAccountChange()">
+            <option value="">Select an account...</option>
+            <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="campaignType">Campaign Type</label>
+          <select id="campaignType" class="form-select" formControlName="campaignType"
+            (change)="onCampaignTypeChange()">
+            <option value="">Select campaign type...</option>
+            <option *ngFor="let type of campaignTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="make">Make</label>
+          <select id="make" class="form-select" formControlName="make" [disabled]="!generatorForm.get('account')?.value"
+            (change)="onMakeChange()">
+            <option value="">Select a make...</option>
+            <option *ngFor="let make of makes" [value]="make">{{make}}</option>
+          </select>
+        </div>
+
+        <div class="form-group" [class.hidden]="!showModelField" id="modelGroup">
+          <label for="model">Model <span class="required">*</span></label>
+          <select id="model" class="form-select" formControlName="model">
+            <option value="">Select model...</option>
+            <option *ngFor="let model of models" [value]="model">{{model}}</option>
+          </select>
+        </div>
+
+        <div class="form-group" [class.hidden]="!showRegionalField" id="regionalGroup">
+          <label for="campaignRegional">Dealer Cities</label>
+          <input type="text" id="campaignRegional" class="form-control" formControlName="campaignRegional"
+            placeholder="Enter city names (comma separated)">
+        </div>
+      </div>
+
+      <!-- Dynamic Campaign Sets Container -->
+      <div class="campaign-sets-container" id="campaignSetsContainer">
+        <div *ngFor="let campaignSet of dynamicCampaignSets; let i = index" class="campaign-set">
+          <div class="campaign-set-header">
+            <div class="campaign-set-title">Campaign Set {{i + 2}}</div>
+            <button type="button" class="remove-campaign-set" (click)="removeCampaignSet(i)">&times;</button>
+          </div>
+          <div class="">
+            <div class="row">
+              <div class="form-group">
+                <label>Account Name</label>
+                <select class="form-control" [(ngModel)]="campaignSet.account" [ngModelOptions]="{standalone: true}"
+                  (change)="onDynamicAccountChange(i)">
+                  <option value="">Select an account...</option>
+                  <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Campaign Type</label>
+                <select class="form-control" [(ngModel)]="campaignSet.campaignType"
+                  [ngModelOptions]="{standalone: true}" (change)="onDynamicCampaignTypeChange(i)">
+                  <option value="">Select campaign type...</option>
+                  <option *ngFor="let type of campaignTypes" [value]="type">{{type}}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Make</label>
+                <select class="form-control" [(ngModel)]="campaignSet.make" [ngModelOptions]="{standalone: true}"
+                  [disabled]="!campaignSet.account" (change)="onDynamicMakeChange(i)">
+                  <option value="">Select a make...</option>
+                  <option *ngFor="let make of campaignSet.availableMakes" [value]="make">{{make}}</option>
+                </select>
+              </div>
+
+              <div class="form-group" [class.hidden]="!campaignSet.showModelField">
+                <label>Model</label>
+                <select class="form-control" [(ngModel)]="campaignSet.model" [ngModelOptions]="{standalone: true}">
+                  <option value="">Select model...</option>
+                  <option *ngFor="let model of campaignSet.availableModels" [value]="model">{{model}}</option>
+                </select>
+              </div>
+
+              <div class="form-group" [class.hidden]="!campaignSet.showRegionalField">
+                <label>Dealer Cities</label>
+                <input type="text" class="form-control" [(ngModel)]="campaignSet.campaignRegional"
+                  [ngModelOptions]="{standalone: true}" placeholder="Enter city names (comma separated)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between gap-2">
+        <div class="button-group">
+          <button type="submit" class="btn custom-btn upload-btn flex-fill"
+            [disabled]="!generatorForm.valid || isLoading">
+            Generate
+          </button>
+          <button class="btn flex-fill add-text" (click)="addCampaignSet()">
+            <i class="fas fa-plus me-2"></i>
+            Add Campaign
+          </button>
+
+
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+  <!-- Results Section -->
+  <div class="build-container">
+    <div *ngIf="showResults">
+      <div>
+        <button *ngIf="showDownloadBtn" class="btn custom-btn download-btn flex-fill" type="button"
+          (click)="handleDownload()">
+          <!-- <i class="fas fa-download me-2"></i> -->
+          Download
+        </button>
+      </div>
+      <div *ngFor="let acc of (accountKeys || []); let accIdx = index; trackBy: trackByString">
+        <h3>Build - #{{ accIdx + 1 }}</h3>
+        <h2>Account: {{ acc }}</h2>
+        <div *ngFor="let cmp of getCampaigns(acc); let cmpIdx = index; trackBy: trackByString">
+          <ng-container *ngIf="getAds(acc, cmp) as ads">
+            <ng-container *ngIf="getKeywords(acc, cmp) as kws">
+              <h2>Campaign: {{ cmp }}</h2>
+              <div class="col-12">
+                <!-- <section> -->
+                <h4 class="panel-title">Ads</h4>
+                <div class="table-container">
+                  <div class="table-wrapper">
+                    <table class="data-table">
+                      <thead>
+                        <tr>
+                          <th *ngFor="let column of (resultColumns || [])">{{ column }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of ads; trackBy: trackByIndex">
+                          <td *ngFor="let column of (resultColumns || [])">
+                            {{ getCell(row, column) }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- </section> -->
+              </div>
+              <div class="col-12">
+                <!-- <section> -->
+                <h4 class="panel-title">Keywords</h4>
+                <div class="table-container">
+                  <div class="table-wrapper" *ngIf="kws.length > 0; else noKw">
+                    <table class="data-table">
+                      <thead>
+                        <tr>
+                          <th>Campaign</th>
+                          <th>Ad Group</th>
+                          <th>Keywords</th>
+                          <th>Match Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let keyword of kws; trackBy: trackByIndex">
+                          <td>{{ keyword?.Campaign || '' }}</td>
+                          <td>{{ keyword?.['Ad group'] || keyword?.ad_group || '' }}</td>
+                          <td>{{ keyword?.Keyword || keyword?.keyword || '' }}</td>
+                          <td>{{ keyword?.['Match type'] || keyword?.match_type || 'Phrase match' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <ng-template #noKw>
+                  <div class="alert alert-secondary w-100 m-0">No keywords for this account + campaign.</div>
+                </ng-template>
+                <!-- </section> -->
+              </div>
+
+              <hr class="my-4" />
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Campaign Editor Tab -->
+<div class="build-container">
+  <div *ngIf="activeTab === 'editor'" class="tab-content">
+    <div>
+      <h1>Add/Update Campaign</h1>
+      <p>Create a new campaign entry or select existing campaign to auto-fill</p>
+    </div>
+
+    <form class="form-cont" [formGroup]="editorForm" (ngSubmit)="handleEditorSubmit()">
+      <div class="form-grid">
+        <!-- Required Fields -->
+        <div class="form-group">
+          <label for="editorAccount">Account <span class="required">*</span></label>
+          <select id="editorAccount" class="form-control" formControlName="account">
+            <option value="">Select account...</option>
+            <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
+            <option value="__custom__">Add New Account...</option>
+          </select>
+          <input *ngIf="showCustomAccount" type="text" class="form-control custom-input" placeholder="Enter new account"
+            [(ngModel)]="customAccountValue" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="editorCustomerID">Customer ID <span class="required">*</span></label>
+          <select id="editorCustomerID" class="form-control" formControlName="customerID">
+            <option value="">Select customer ID...</option>
+            <option *ngFor="let customerId of customerIds" [value]="customerId">{{customerId}}</option>
+            <option value="__custom__">Add New Customer ID...</option>
+          </select>
+          <input *ngIf="showCustomCustomerID" type="text" class="form-control custom-input"
+            placeholder="Enter new customer ID" [(ngModel)]="customCustomerIDValue"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="editorCampaignType">Campaign Type <span class="required">*</span></label>
+          <select id="editorCampaignType" class="form-control" formControlName="campaignType">
+            <option value="">Select campaign type...</option>
+            <option *ngFor="let type of campaignTypes" [value]="type">{{type}}</option>
+            <option value="__custom__">Add New Campaign Type...</option>
+          </select>
+          <input *ngIf="showCustomCampaignType" type="text" class="form-control custom-input"
+            placeholder="Enter new campaign type" [(ngModel)]="customCampaignTypeValue"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="editorMake">Make <span class="required">*</span></label>
+          <select id="editorMake" class="form-control" formControlName="make">
+            <option value="">Select make...</option>
+            <option *ngFor="let make of makes" [value]="make">{{make}}</option>
+            <option value="__custom__">Add New Make...</option>
+          </select>
+          <input *ngIf="showCustomMake" type="text" class="form-control custom-input" placeholder="Enter new make"
+            [(ngModel)]="customMakeValue" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="editorModel">Model</label>
+          <select id="editorModel" class="form-control" formControlName="model">
+            <option value="">Select model...</option>
+            <option *ngFor="let model of models" [value]="model">{{model}}</option>
+            <option value="__custom__">Add New Model...</option>
+          </select>
+          <input *ngIf="showCustomModel" type="text" class="form-control custom-input" placeholder="Enter new model"
+            [(ngModel)]="customModelValue" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+
+      <div class="section-title">Optional Fields</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="dealerCity">Dealer City</label>
+          <input type="text" id="dealerCity" class="form-control" formControlName="dealerCity">
+        </div>
+
+        <div class="form-group">
+          <label for="campaign">Campaign</label>
+          <input type="text" id="campaign" class="form-control" formControlName="campaign">
+        </div>
+
+        <div class="form-group">
+          <label for="adGroup">Ad Group</label>
+          <input type="text" id="adGroup" class="form-control" formControlName="adGroup">
+        </div>
+
+        <div class="form-group">
+          <label for="finalURL">Final URL</label>
+          <input type="url" id="finalURL" class="form-control" formControlName="finalURL">
+        </div>
+      </div>
+
+      <div class="section-title">Headlines</div>
+      <div class="form-grid">
+        <div class="form-group" *ngFor="let headline of headlines; let i = index">
+          <label for="headline{{i+1}}">Headline {{i+1}}</label>
+          <input type="text" id="headline{{i+1}}" class="form-control" [formControlName]="'headline' + (i+1)">
+        </div>
+      </div>
+
+      <div class="section-title">Descriptions & Paths</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="description1">Description 1</label>
+          <textarea id="description1" class="form-control" rows="2" formControlName="description1"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="description2">Description 2</label>
+          <textarea id="description2" class="form-control" rows="2" formControlName="description2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="path1">Path 1</label>
+          <input type="text" id="path1" class="form-control" formControlName="path1">
+        </div>
+
+        <div class="form-group">
+          <label for="path2">Path 2</label>
+          <input type="text" id="path2" class="form-control" formControlName="path2">
+        </div>
+
+        <div class="form-group">
+          <label for="labels">Labels</label>
+          <input type="text" id="labels" class="form-control" formControlName="labels">
+        </div>
+
+        <div class="form-group">
+          <label for="keyword">Keyword</label>
+          <input type="text" id="keyword" class="form-control" formControlName="keyword">
+        </div>
+      </div>
+
+      <!-- <div class="button-group">
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">Add/Update Campaign</button>
+          <button type="button" class="btn btn-secondary" (click)="resetEditorForm()">Cancel</button>
+        </div> -->
+
+      <div class="d-flex justify-content-between mt-3 gap-2">
+        <div class="button-group">
+          <button class="btn custom-btn upload-btn flex-fill" [disabled]="isLoading">Add/Update Campaign</button>
+
+          <button class="btn custom-btn download-btn flex-fill" (click)="resetEditorForm()">Cancel</button>
+
+          <!-- Toggle demo video -->
+          <!-- <button class="btn custom-btn demo-btn flex-fill" (click)="demoVideo()" [attr.aria-expanded]="showDemo"
+              aria-controls="demoVideoContainer">
+              {{ showDemo ? 'Hide demo' : 'Watch demo' }}
+            </button> -->
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Loading Indicator -->
+  <!-- <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>{{loadingText}}</p>
+  </div> -->
+
+  <!-- Alerts -->
+  <div *ngIf="alertMessage" class="alert" [ngClass]="'alert-' + alertType">
+    {{alertMessage}}
+    <button class="alert-close" (click)="clearAlert()">&times;</button>
+  </div>
+</div>
+<!-- </div> -->
+
+<!-- <div>
+
+</div> -->

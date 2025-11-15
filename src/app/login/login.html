@@ -1,0 +1,89 @@
+<!-- login.component.html -->
+<div class="auth-page min-vh-100 d-flex align-items-center justify-content-center px-3">
+  <div class="auth-card">
+    <div class="login-logo">
+      <img src="./assets/images/dat-logo-black.png" alt="DAT Logo">
+    </div>
+    <h1 class="auth-title"><span class="highlight">AuditIQ </span>– PitStop</h1>
+
+    <!-- Message Display -->
+    <div class="message" 
+         [class.success]="messageType === 'success'" 
+         *ngIf="message">
+      {{ message }}
+    </div>
+
+    <!-- Login Form -->
+    <form class="login-form" 
+          [formGroup]="loginForm" 
+          (ngSubmit)="onSubmit()"
+          novalidate>
+      
+      <!-- Email Field -->
+      <div class="form-group with-icon">
+        <span class="icon">
+          <i class="fas fa-envelope"></i>
+        </span>
+        <input 
+          type="email" 
+          id="email"
+          placeholder="Email" 
+          formControlName="email"
+          [class.is-invalid]="hasError('email')"
+          (input)="onFieldChange()"
+          autocomplete="email"
+        />
+        <div class="error-message" 
+             *ngIf="hasError('email')">
+          {{ getErrorMessage('email') }}
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group with-icon">
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <input 
+          [type]="showPwd ? 'text' : 'password'" 
+          id="password"
+          placeholder="Password" 
+          formControlName="password"
+          [class.is-invalid]="hasError('password')"
+          (input)="onFieldChange()"
+          autocomplete="current-password"
+        />
+        <button 
+          type="button" 
+          class="peek" 
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="showPwd ? 'Hide password' : 'Show password'"
+          tabindex="-1">
+          <i [class]="showPwd ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+        </button>
+        <div class="error-message" 
+             *ngIf="hasError('password')">
+          {{ getErrorMessage('password') }}
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit" 
+        class="login-btn"
+        [class.loading]="isSubmitting"
+        [disabled]="isSubmitting">
+        <span *ngIf="!isSubmitting">Login</span>
+        <span *ngIf="isSubmitting">Loging In...</span>
+      </button>
+    </form>
+
+    <!-- Optional: Sign up link -->
+    
+    <div class="signup-link">
+      Don't have an account?
+      <a routerLink="/signup">Sign up here</a>
+    </div>
+   
+  </div>
+</div>

@@ -1,0 +1,46 @@
+.download-btn {
+  background: #71C2C5;
+  ;
+}
+
+.download-btn:hover {
+  background: #71C2C5;
+  ;
+}
+
+.output-title {
+  color: #a3a6a8;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 18pt !important;
+}
+
+.border-container p {
+  color: #130f40;
+  font-weight: 600;
+  font-size: 1.1em;
+  letter-spacing: -1px;
+  margin-top: 30px;
+  margin-bottom: 0;
+  opacity: 0.65;
+}
+
+.upload-container {
+  background-color: #f6f8f8;
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+}
+
+.fa-upload {
+  font-size: 24pt;
+}
+
+.upload-content {
+  font-size: 16pt;
+}
+
+.gen-class {
+  margin-top: 3rem !important;
+  margin-bottom: 1rem !important;
+}

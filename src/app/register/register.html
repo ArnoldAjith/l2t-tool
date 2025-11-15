@@ -1,0 +1,134 @@
+<!-- register.component.html -->
+<div class="register-container">
+
+  <div class="register-card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <h2>Create Account</h2>
+      <p>Please fill in the information below</p>
+    </div>
+
+    <!-- Registration Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+
+      <!-- Message Display -->
+      <div *ngIf="message" class="message" [ngClass]="messageType">
+        <i class="fas" [ngClass]="{
+          'fa-check-circle': messageType === 'success',
+          'fa-exclamation-circle': messageType === 'error'
+        }"></i>
+        {{ message }}
+      </div>
+
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="userName">Username *</label>
+        <input type="text" id="userName" formControlName="userName" class="form-control"
+          [class.error]="hasError('userName', 'required') || hasError('userName', 'minlength')"
+          placeholder="Enter your username">
+
+        <div class="error-message" *ngIf="hasError('userName', 'required')">
+          Username is required
+        </div>
+        <div class="error-message" *ngIf="hasError('userName', 'minlength')">
+          Username must be at least 3 characters long
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="mailId">Email Address *</label>
+        <input type="email" id="mailId" formControlName="mailId" class="form-control"
+          [class.error]="hasError('mailId', 'required') || hasError('mailId', 'email')"
+          placeholder="Enter your email address">
+
+        <div class="error-message" *ngIf="hasError('mailId', 'required')">
+          Email is required
+        </div>
+        <div class="error-message" *ngIf="hasError('mailId', 'email')">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <!-- Employee ID Field -->
+      <div class="form-group">
+        <label for="employeeId">Employee ID *</label>
+        <input type="text" id="employeeId" formControlName="employeeId" class="form-control"
+          [class.error]="hasError('employeeId', 'required')" placeholder="Enter your employee ID">
+
+        <div class="error-message" *ngIf="hasError('employeeId', 'required')">
+          Employee ID is required
+        </div>
+      </div>
+
+      <!-- Designation Field -->
+      <div class="form-group">
+        <label for="designation">Designation *</label>
+        <select id="designation" formControlName="designation" class="form-control"
+          [class.error]="hasError('designation', 'required')">
+          <option value="">-- Select Designation --</option>
+          <option value="Developer">Software Developer</option>
+          <option value="Digital Marketing">Digital Marketing</option>
+          <option value="SEO">SEO</option>
+          <option value="Manager">Manager</option>
+        </select>
+
+        <div class="error-message" *ngIf="hasError('designation', 'required')">
+          Designation is required
+        </div>
+      </div>
+
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input type="password" id="password" formControlName="password" class="form-control"
+          [class.error]="hasError('password', 'required') || hasError('password', 'minlength')"
+          placeholder="Enter your password">
+
+        <div class="error-message" *ngIf="hasError('password', 'required')">
+          Password is required
+        </div>
+        <div class="error-message" *ngIf="hasError('password', 'minlength')">
+          Password must be at least 6 characters long
+        </div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password *</label>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"
+          [class.error]="hasError('confirmPassword', 'required') || hasError('confirmPassword', 'passwordMismatch')"
+          placeholder="Confirm your password">
+
+        <div class="error-message" *ngIf="hasError('confirmPassword', 'required')">
+          Please confirm your password
+        </div>
+        <div class="error-message" *ngIf="hasError('confirmPassword', 'passwordMismatch')">
+          Passwords do not match
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="resetForm()" [disabled]="isSubmitting">
+          Reset
+        </button>
+
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner"></span>
+          {{ isSubmitting ? 'Creating Account...' : 'Create Account' }}
+        </button>
+      </div>
+
+    </form>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <p>Already have an account? <a href="/login">Sign in here</a></p>
+    </div>
+
+  </div>
+
+</div>

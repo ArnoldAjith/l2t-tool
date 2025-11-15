@@ -1,0 +1,82 @@
+/* === DATE PICKER CONTAINER STYLING === */
+.date-picker-container {
+  width: 360px;
+  margin: 40px auto;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.date-picker-container:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+}
+
+.mat-button-toggle-group {
+  display: flex;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.mat-button-toggle {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 16px;
+}
+
+.date-field {
+  width: 100%;
+}
+
+.picker-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+p {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+/* === DATEPICKER POPUP FIXES === */
+.mat-datepicker-content,
+.mat-date-range-picker-content {
+  background-color: #fff !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border-radius: 8px !important;
+}
+
+/* Make sure the calendar area itself is white */
+.mat-calendar {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* Optional: tweak header for better contrast */
+.mat-calendar-header {
+  background-color: #f8f9fa !important;
+}
+
+/* Ensure transparent overlays don’t affect popup */
+.cdk-overlay-pane {
+  background: transparent !important;
+}

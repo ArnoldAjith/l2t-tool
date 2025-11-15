@@ -1,0 +1,212 @@
+<div class="d-flex">
+
+    <!-- Content Area -->
+    <div class="container-fluid p-4 content-area">
+        <!-- Data Source Selector -->
+        <div class="col-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold h5">Select Data Source</label>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="dataSource" id="autoExtraction"
+                                    value="google" [checked]="dataSource === 'google'"
+                                    (change)="onDataSourceChange('google')" />
+                                <label class="form-check-label fw-bold h6" for="autoExtraction">
+                                    Auto Extraction
+                                </label>
+                                <div class="form-text">Automatically fetch data from Google Ads</div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="dataSource" id="fileUpload"
+                                    value="upload" [checked]="dataSource === 'upload'"
+                                    (change)="onDataSourceChange('upload')" />
+                                <label class="form-check-label fw-bold h6" for="fileUpload">
+                                    File Upload
+                                </label>
+                                <div class="form-text">Upload CSV files manually</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8" >
+            <div *ngIf="dataSource === 'google'">
+                <div class="card shadow-sm mt-3">
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <!-- <label class="form-label fw-bold">Select Technology</label> -->
+                                        <select class="form-select" [(ngModel)]="selectedTech"
+                                            (change)="onTechChange($event)">
+                                            <option value="">-- Choose an Accounts --</option>
+                                            <option *ngFor="let tech of technologies" [value]="tech.id">
+                                                {{ tech.name }} - ({{ tech.id }})
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 ms-auto">
+                                <div class="button-group">
+                                    <button class="btn custom-btn upload-btn flex-fill" 
+                                            (click)="runAudit()" 
+                                            [disabled]="isProcessing">
+                                        <i class="fas fa-play me-2" *ngIf="!isProcessing"></i>
+                                        <i class="fas fa-spinner fa-spin me-2" *ngIf="isProcessing"></i>
+                                        {{ isProcessing ? 'Processing...' : 'Run Audit' }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="timePeriodSelect" class="form-label fw-bold">Time Period</label>
+                                <select id="timePeriodSelect" class="form-select" [(ngModel)]="selectedPeriod"
+                                    (change)="onTimePeriodChange($event)" name="timePeriod">
+                                    <option value="last_7_days">Last 7 days</option>
+                                    <option value="last_30_days">Last 30 days</option>
+                                    <option value="last_90_days">Last 90 days</option>
+                                    <option value="last_6_months">Last 6 months</option>
+                                    <option value="last_year">Last year</option>
+                                    <option value="custom">Custom Date Range</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        
+                        <!-- Processing Status -->
+                        <div *ngIf="isProcessing" class="row mt-3">
+                            <div class="col-12">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="spinner-border spinner-border-sm text-primary me-2" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            <span class="fw-bold">{{ processingMessage }}</span>
+                                        </div>
+                                        <div class="progress" style="height: 25px;">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                                 role="progressbar" 
+                                                 [style.width.%]="processingProgress"
+                                                 [attr.aria-valuenow]="processingProgress" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="100">
+                                                {{ processingProgress }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audit Results Section -->
+            <div *ngIf="showResults && auditResults" class="col-12 mt-4" id="audit-results-section">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">{{ auditResults.name || 'Expired Ad Offers Running' }}</h5>
+                            <div class="d-flex align-items-center gap-2">
+                                <!-- Status Circle -->
+                                <div [class]="getStatusCircleClass(auditResults.status)" 
+                                     [attr.data-bs-toggle]="'tooltip'" 
+                                     [attr.data-bs-placement]="'top'" 
+                                     [attr.title]="auditResults.status || 'N/A'"
+                                     style="cursor: help;"></div>
+                                <span class="small text-muted">{{ auditResults.status || 'N/A' }}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="badge" style="background-color: #1044B4; color: white;">
+                                {{ auditResults.count || 0 }} flagged
+                            </span>
+                            <button class="btn btn-sm btn-outline-secondary ms-2" (click)="resetAudit()">
+                                <i class="fas fa-redo me-1"></i>Run New Audit
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Special Description -->
+                    <div *ngIf="auditResults.special_description" class="card-body border-bottom">
+                        <div class="alert alert-info mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Note:</strong> {{ auditResults.special_description }}
+                        </div>
+                    </div>
+
+                    <!-- Records Table -->
+                    <div *ngIf="auditResults.records && auditResults.records.length > 0" class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th *ngFor="let key of getRecordKeys(auditResults.records[0])" scope="col" 
+                                        >
+                                        {{ formatColumnName(key) }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let record of auditResults.records">
+                                    <td *ngFor="let key of getRecordKeys(record)" 
+                                        >
+                                        {{ formatValue(record[key]) }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- No Records Message -->
+                    <div *ngIf="!auditResults.records || auditResults.records.length === 0" class="card-body text-center py-5">
+                        <i class="fas fa-check-circle text-success" style="font-size: 3rem;"></i>
+                        <h4 class="text-success mt-3">Congratulations!</h4>
+                        <p class="text-muted">All audit checks passed with no flagged records. Your account is in excellent health.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="dataSource === 'upload'">
+                <div class="card shadow-sm mt-3">
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold mb-2">Select File Type</label>
+                                <select class="form-select form-select-sm" [(ngModel)]="selectedFileType">
+                                    <option value="">Choose file type...</option>
+                                    <option *ngFor="let fileType of fileTypes" [value]="fileType.name">
+                                        {{ fileType.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold mb-2">Upload File</label>
+                                <input type="file" class="form-control" (change)="onFileSelected($event)" />
+                            </div>
+                            <div class="col-12 ms-auto">
+                                <div class="button-group">
+                                <button class="btn custom-btn upload-btn flex-fill" (click)="runAudit()">
+                                    <i class="fas fa-play me-2"></i>Run Audit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

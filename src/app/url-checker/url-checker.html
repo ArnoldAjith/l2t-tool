@@ -1,0 +1,115 @@
+<div class="build-container">
+    <div class="row">
+        <div class="col-md-8 col-lg-8">
+            <!-- <div class="card"> -->
+            <!-- <div class="card-header">
+                    <h4 class="card-title">{{ cardTitle }}</h4>
+                </div> -->
+
+            <div class="controls-card">
+
+                <!-- <div class="row">
+                    <div class="col-3 form-group">
+                        <select id="useragent" class="form-control" (change)="userAgent = $any($event.target).value">
+                            <option
+                                [selected]="userAgent === 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246'"
+                                value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246">
+                                Windows 10 + Edge
+                            </option>
+                            <option
+                                [selected]="userAgent === 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36'"
+                                value="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36">
+                                Windows 7 + Chrome
+                            </option>
+                            <option
+                                [selected]="userAgent === 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9'"
+                                value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9">
+                                macOS + Safari
+                            </option>
+                            <option
+                                [selected]="userAgent === 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1'"
+                                value="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1">
+                                Linux + Firefox
+                            </option>
+                        </select>
+                    </div>
+                </div> -->
+
+                <form class="form form-horizontal" (submit)="$event.preventDefault()">
+                    <label for="file-upload" class="upload-container" style="display:block;">
+                        <div class="border-container" role="button" aria-label="Choose files">
+                            <div class="icons fa-4x" aria-hidden="true">
+                                <i class="fas fa-upload" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                            </div>
+                            <input type="file" id="file-upload" name="files" multiple (change)="onFileChange($event)"
+                                hidden aria-hidden="true" />
+                            <div class="upload-content">Drag and drop files here, or
+                                <label for="file-upload"
+                                    style="text-decoration: underline; cursor: pointer;">browse</label>
+                                your computer.
+                            </div>
+                        </div>
+                    </label>
+                </form>
+
+                <!-- User-Agent (kept minimal) -->
+            </div>
+
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="build-container">
+    <div class="row g-3 mb-3">
+        <div class="button-group">
+            <button type="button" class="btn upload-btn custom-btn" [disabled]="submitBtn || loading"
+                (click)="generate()">
+                <ng-container *ngIf="!loading; else generatingTpl">
+                    Generate
+                </ng-container>
+                <ng-template #generatingTpl>
+                    <span class="btn-spinner" aria-hidden="true"></span>
+                    Generating…
+                </ng-template>
+            </button>
+            <button class="btn upload-btn custom-btn" [disabled]="!results?.length || loading"
+                (click)="downloadResults()">
+                Download
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Plain results table (no extra design) -->
+<div class="build-container" *ngIf="results?.length">
+    <h4>Urls : {{ results?.length }}</h4>
+    <h4>Redirect URLs: {{ redirectCount }}</h4>
+    <div *ngIf="results?.length">
+        <h4 *ngFor="let s of statusCounts | keyvalue">
+            Status {{ s.key }}: {{ s.value }}
+        </h4>
+    </div>
+    <div class="table-container">
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>Status</th>
+                        <th>Redirected</th>
+                        <th>Status Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let r of results">
+                        <td><a [href]="r.url" target="_blank" rel="noopener">{{ r.url }}</a></td>
+                        <td>{{ r.statusCode }}</td>
+                        <td>{{ r.redirectUrl || '-' }}</td>
+                        <td>{{ r.statusMessage || '-' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

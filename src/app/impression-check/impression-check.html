@@ -1,0 +1,86 @@
+<div class="build-container" *ngIf="showSummary">
+  <!-- <h2>Executive Summary</h2> -->
+  <h3>{{ overall_status }}</h3>
+</div>
+
+
+<!-- location-settings.html -->
+<div class="build-container">
+
+  <!-- Header Section -->
+  <div class="header-section">
+    <!-- <h2>Zero Spend for - 3 days</h2> -->
+    <div class="action-buttons">
+      <!-- <button class="btn btn-export" (click)="exportToExcel()"
+        [disabled]="loading || !currentTabData || currentTabData.data.length === 0">
+        Download Current Tab
+      </button> -->
+      <button class="btn btn-export-all" (click)="exportAllToExcel()" [disabled]="loading || tabs.length === 0">
+        Download
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading data...</p>
+  </div>
+
+
+  <!-- Main Content -->
+  <div *ngIf="!loading && !error" class="content-container">
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-container" *ngIf="tabs.length > 0">
+      <!-- <div class="tabs-nav">
+        <button *ngFor="let tab of tabs; let i = index" class="tab-button" [class.active]="activeTab === i"
+          (click)="setActiveTab(i)">
+          {{ tab.label }}
+          <span class="record-badge">{{ tab.data.length }}</span>
+        </button>
+      </div> -->
+
+      <!-- Tab Content -->
+      <div class="tab-content" *ngIf="currentTabData">
+
+        <!-- Table -->
+        <div class="table-wrapper" *ngIf="currentTabData.data.length > 0">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th *ngFor="let column of currentTabData.columns">{{ column | titlecase }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of currentTabData.data; let i = index">
+                <td class="row-number">{{ i + 1 }}</td>
+                <td *ngFor="let column of currentTabData.columns" [title]="formatCellData(item[column])">
+                  {{ formatCellData(item[column]) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- No Data State -->
+        <div *ngIf="currentTabData.data.length === 0" class="no-data">
+          <i class="fas fa-inbox"></i>
+          <h3>No Data Available</h3>
+          <!--<p>There is no data available for {{ currentTabData.label }} at the moment.</p>-->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- No Tabs Available -->
+    <div *ngIf="tabs.length === 0" class="no-data">
+      <i class="fas fa-database"></i>
+      <h3>No Data Available</h3>
+      <!-- <p>The response doesn't contain any recognizable data arrays.</p> -->
+    </div>
+
+  </div>
+
+</div>

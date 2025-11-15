@@ -1,0 +1,257 @@
+<div *ngIf="statusMessage" class="alert" [ngClass]="{'alert-success': statusType === 'success', 
+                        'alert-error': statusType === 'error',
+                        'alert-info': statusType === 'info'}">
+    <span [innerHTML]="statusMessage"></span>
+    <button class="alert-close" (click)="clearStatus()" type="button">&times;</button>
+</div>
+
+<div class="build-container card">
+    <div class="card-body">
+        <!-- <small class="text-muted d-block mb-2">
+            Pick exactly 1 file.
+        </small> -->
+        <ng-container *ngIf="currentStep === 'upload'">
+
+            <div class="row">
+                <div class="col-6">
+                    <!-- <div class="wrapper"> -->
+                    <label for="file-upload" class="upload-container" style="display:block;">
+                        <div class="border-container" role="button" aria-label="Choose files">
+                            <div class="icons fa-4x" aria-hidden="true">
+                                <i class="fas fa-upload" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                            </div>
+                            <input #fileInput type="file" (change)="onFileSelected($event)" accept=".xlsx,.xls"
+                                class="form-control" [disabled]="isUploading" hidden aria-hidden="true" />
+                            <div class="upload-content">Drag and drop files here, or
+                                <label for="file-upload"
+                                    style="text-decoration: underline; cursor: pointer;">browse</label>
+                                your computer.
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="selected-file" *ngIf="selectedFile">
+                    <div class="file-details">
+                        <span class="file-name">{{ selectedFile.name }}</span>
+                        <span class="file-size">({{ getFileSize(selectedFile.size) }})</span>
+                    </div>
+                    <button class="btn-remove" (click)="removeFile()" type="button">Remove</button>
+                </div>
+            </div>
+            <!-- </div> -->
+
+            <!-- <div [ngClass]="{'drag-over': isDragOver}" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+                (drop)="onDrop($event)" (click)="fileInput.click()">
+                <input #fileInput type="file" (change)="onFileSelected($event)" accept=".xlsx,.xls" class="form-control"
+                    [disabled]="isUploading">
+            </div>
+
+            <div class="selected-file" *ngIf="selectedFile">
+                <div class="file-details">
+                    <span class="file-name">{{ selectedFile.name }}</span>
+                    <span class="file-size">({{ getFileSize(selectedFile.size) }})</span>
+                </div>
+                <button class="btn-remove" (click)="removeFile()" type="button">Remove</button>
+            </div> -->
+
+            <div class="upload-progress" *ngIf="isUploading">
+                <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="uploadProgress"></div>
+                </div>
+                <p class="progress-text">Uploading... {{ uploadProgress }}%</p>
+            </div>
+
+            <div class="d-flex justify-content-between mt-3 gap-2">
+                <div class="button-group">
+                    <button class="btn custom-btn upload-btn flex-fill" (click)="downloadTemplate()" type="button">
+                        <span *ngIf="!isUploading">
+                            <!-- <i class="fas fa-upload me-2"></i>  -->
+                            Generate</span>
+                        <span *ngIf="isUploading">Uploading...</span>
+                    </button>
+
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <!-- Analysis Section -->
+    <div class="section analysis-section" *ngIf="currentStep === 'analyze'">
+        <div class="section-header">
+            <h2>🚀 Start Analysis</h2>
+            <p>File uploaded successfully: <strong>{{ uploadedFileName }}</strong></p>
+            <p class="file-stats">{{ uploadedRows }} rows loaded</p>
+        </div>
+
+        <div class="analysis-info">
+            <div class="info-card">
+                <h3>What this analysis will do:</h3>
+                <ul>
+                    <li>✅ Analyze search terms with clicks > 0</li>
+                    <li>🎯 Identify irrelevant search queries</li>
+                    <li>🚫 Suggest negative keywords to improve targeting</li>
+                    <li>📊 Provide strategic recommendations with reasoning</li>
+                    <li>📁 Generate downloadable Excel report</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" (click)="startAnalysis()" [disabled]="isAnalyzing" type="button">
+                <span *ngIf="!isAnalyzing">🔍 Start AI Analysis</span>
+                <span *ngIf="isAnalyzing">⏳ Starting Analysis...</span>
+            </button>
+
+            <button class="btn btn-secondary" (click)="goBackToUpload()" type="button">
+                ← Upload Different File
+            </button>
+        </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="section progress-section" *ngIf="currentStep === 'progress'">
+        <div class="section-header">
+            <h2>🔄 Analysis in Progress</h2>
+            <p>AI is analyzing your search query report...</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-circle">
+                <div class="progress-ring">
+                    <svg width="120" height="120">
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" stroke-width="12" />
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#3b82f6" stroke-width="12"
+                            stroke-linecap="round" [style.stroke-dasharray]="339.292"
+                            [style.stroke-dashoffset]="339.292 - (339.292 * progressPercentage / 100)"
+                            transform="rotate(-90 60 60)" />
+                    </svg>
+                    <div class="progress-text">{{ progressPercentage }}%</div>
+                </div>
+            </div>
+
+            <div class="progress-details">
+                <div class="progress-stats" *ngIf="progressData">
+                    <div class="stat-item">
+                        <span class="stat-label">Batches Processed:</span>
+                        <span class="stat-value">{{ progressData.processed }}/{{ progressData.total }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Successful:</span>
+                        <span class="stat-value success">{{ progressData.successful }}</span>
+                    </div>
+                    <div class="stat-item" *ngIf="progressData.failed > 0">
+                        <span class="stat-label">Failed:</span>
+                        <span class="stat-value error">{{ progressData.failed }}</span>
+                    </div>
+                    <div class="stat-item" *ngIf="progressData.filtered_rows">
+                        <span class="stat-label">Rows Being Analyzed:</span>
+                        <span class="stat-value">{{ progressData.filtered_rows }}</span>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="progressData?.messages">
+                    <div *ngFor="let msg of progressData?.messages; trackBy: trackByMessage">
+                        {{ msg }}
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+
+        <div class="estimated-time">
+            <p>⏱️ This may take 2-5 minutes depending on file size</p>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="section results-section" *ngIf="currentStep === 'results'">
+        <div class="section-header">
+            <h2>✅ Analysis Complete!</h2>
+            <p>Your SQR analysis has been completed successfully</p>
+        </div>
+
+        <div class="results-summary" *ngIf="analysisResults">
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <div class="card-number">{{ analysisResults.total_rows }}</div>
+                        <div class="card-label">Total Rows</div>
+                    </div>
+                </div>
+
+                <div class="summary-card highlight">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-content">
+                        <div class="card-number">{{ analysisResults.negative_suggestions }}</div>
+                        <div class="card-label">Negative Keywords Suggested</div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon">⏰</div>
+                    <div class="card-content">
+                        <div class="card-number">{{ getCompletionTime() }}</div>
+                        <div class="card-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-info">
+            <div class="info-card">
+                <h3>📋 What's included in your report:</h3>
+                <ul>
+                    <li>🔍 Original search query data with all metrics</li>
+                    <li>💡 AI-generated recommendations with clear reasoning</li>
+                    <li>🚫 Suggested negative keywords with match types</li>
+                    <li>📊 Recommended implementation levels (Account/Campaign/Ad Group)</li>
+                    <li>⚡ Ready-to-implement negative keyword lists</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" (click)="downloadResults()" [disabled]="isDownloading" type="button">
+                <span *ngIf="!isDownloading">📥 Download Excel Report</span>
+                <span *ngIf="isDownloading">⏳ Preparing Download...</span>
+            </button>
+
+            <button class="btn btn-secondary" (click)="startNewAnalysis()" type="button">
+                🔄 Analyze New File
+            </button>
+        </div>
+    </div>
+
+    <!-- Error Section -->
+    <div class="section error-section" *ngIf="currentStep === 'error'">
+        <div class="section-header">
+            <h2>❌ Analysis Failed</h2>
+            <p>There was an error processing your file</p>
+        </div>
+
+        <div class="error-details">
+            <div class="error-message">
+                <strong>Error:</strong> {{ errorMessage }}
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" (click)="startNewAnalysis()" type="button">
+                🔄 Try Again
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="build-container" style="text-align: left;">
+    <h4 class="output-title">Output</h4>
+    <button class="btn custom-btn download-btn flex-fill" (click)="uploadFile()"
+        [disabled]="!selectedFile || isUploading">
+        <!-- <i class="fas fa-download me-2"></i>  -->
+        Download
+    </button>
+</div>

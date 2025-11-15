@@ -1,0 +1,777 @@
+/* Base select styling (you already had this) */
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  padding-right: 2rem;
+}
+
+.custom-select .fa {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.px-md-4 {
+  padding-right: 2.5rem !important;
+  padding-left: 3.5rem !important;
+}
+
+.controls-bar {
+  background: var(--color-bg-control, #fff);
+  border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+@media (min-width: 992px) {
+  .controls-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+}
+
+.page-wrapper .container {
+  max-width: 1140px;
+}
+
+h4.fs-5 {
+  line-height: 1.3;
+}
+
+@media (max-width: 576px) {
+  .form-label {
+    font-size: 0.95rem;
+  }
+
+  .custom-select select {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  .custom-select .arrow {
+    font-size: 1rem;
+  }
+
+  .card-footer {
+    display: block !important;
+  }
+
+  .card-footer.d-flex.gap-2 {
+    display: block !important;
+  }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .controls-bar .row.g-3 {
+    row-gap: 0.75rem;
+  }
+
+  .header-content {
+    margin-bottom: 0px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container.py-3.py-md-4 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.fake-select {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* the text you always want to show */
+.fake-select__text {
+  display: block;
+  padding: 12px 0px 16px 20px;
+  color: #0D1336;
+  font-weight: 200;
+  font-size: 15pt;
+  letter-spacing: -0.5px;
+  line-height: 1.5;
+  width: 95%;
+  background: #fff;
+  margin: 0px 10px;
+  border-radius: 12px;
+}
+
+nav.nav-tabs {
+  padding: 0px 50px;
+  border-bottom: none !important;
+}
+
+/* the real select, invisible but clickable */
+.overlay-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #58717A;
+  background-clip: padding-box;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.title-tools {
+  margin-bottom: .25rem !important;
+  font-weight: 400;
+  font-size: 40px !important;
+  color: #0D1336;
+  letter-spacing: -1px;
+}
+
+.sub-title {
+  font-weight: 400;
+  font-size: 14pt;
+  color: #4B548B !important;
+  letter-spacing: -0.5px;
+  text-transform: capitalize;
+}
+
+.fa-chevron-down {
+  font-size: 14px;
+  padding: 0px 20px 0px 50px;
+}
+
+.fake-select {
+  width: 98%;
+  padding-top: 5px;
+  padding-bottom: 0px;
+}
+
+.line-title {
+  margin-top: 0px !important;
+  margin-bottom: 10px !important;
+}
+
+.end-spacing {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: flex-end;
+  justify-content: end;
+  margin-top: 20px;
+}
+
+/* 
+.dropdown-menu {
+    width: 350px; 
+}*/
+
+/* ===============================
+   TABLET / iPad: 768–991.98px
+   =============================== */
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+  /* Stack the two dropdowns in two columns (50/50) */
+  .bg-white .row>.col-2 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  /* Make the fake select fluid and scale text down */
+  .fake-select {
+    width: 100%;
+    padding-top: 2px;
+    padding-bottom: 0;
+  }
+
+  .fake-select__text {
+    font-size: 20pt;
+    line-height: 1.3;
+    padding: .25rem 0;
+  }
+
+  .overlay-select {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  /* Chevron feels oversized/pushed—tighten it */
+  .fa-chevron-down {
+    font-size: 12px;
+    padding: 0 16px;
+    /* was 0 70px on desktop */
+  }
+
+  /* Titles scale for tablet */
+  .title-tools {
+    font-size: 28pt;
+    margin-bottom: .25rem;
+  }
+
+  .sub-title {
+    font-size: 14pt;
+    letter-spacing: 1.5px;
+  }
+
+  /* Breathing room for the divider */
+  .line-title {
+    margin-top: 4px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Container side-padding feels tight on tablet in this layout */
+  .px-md-4 {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+
+  nav.nav-tabs {
+    padding: 14px 0px 0px 20px !important;
+  }
+}
+
+/* ===============================
+   MOBILE: up to 767.98px
+   =============================== */
+@media (max-width: 767.98px) {
+
+  /* Keep two dropdowns in single row (50/50) */
+  .bg-white .row {
+    row-gap: 10px;
+  }
+
+  .bg-white .row>.col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  /* Full-width, touch-friendly selects */
+  .fake-select {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .fake-select__text {
+    font-size: 16pt;
+    line-height: 1.25;
+    padding: 12px 0px 16px 20px;
+  }
+
+  .overlay-select {
+    min-height: 48px;
+    /* comfortable touch target */
+    font-size: 1rem;
+  }
+
+  .fa-chevron-down {
+    font-size: 12px;
+    padding: 0 10px;
+    /* keep icon near label */
+  }
+
+  /* Tighten header paddings on mobile */
+  .px-2 {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Titles: readable but compact */
+  .title-tools {
+    font-size: 24pt;
+    margin-bottom: .25rem;
+  }
+
+  .sub-title {
+    font-size: 12pt;
+    letter-spacing: 1px;
+    margin-bottom: -5px;
+  }
+
+  .line-title {
+    margin-top: 2px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .end-spacing {
+    align-items: flex-start !important;
+    justify-content: left !important;
+  }
+}
+
+/* =========================================
+   OPTIONAL: Small phones — up to 575.98px
+   Slightly tighter type for very small screens
+   ========================================= */
+@media (max-width: 575.98px) {
+  .fake-select__text {
+    font-size: 15pt;
+  }
+
+  .title-tools {
+    font-size: 26pt;
+  }
+
+  .sub-title {
+    font-size: 11pt;
+  }
+
+  .bg-dash {
+    background-color: #f8f8f8 !important;
+    padding: 20px 0px 20px 20px !important;
+  }
+
+  .header {
+    margin-bottom: 0px !important;
+    margin-top: 0px;
+  }
+
+  .body-wrapper {
+    padding-top: 30px !important;
+  }
+
+  nav.nav-tabs {
+    padding: 22px 30px 0px 30px !important;
+    border-bottom: none !important;
+  }
+
+  .button-group .btn {
+    display: block;
+  }
+
+  .button-group {
+    margin-left: 0px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn {
+    flex: 1;
+    min-width: 250px;
+    margin: 0px 10px !important;
+    padding: 8px !important;
+  }
+
+  nav.nav-tabs {
+    padding: 22px 30px 0px 30px !important;
+    border-bottom: none !important;
+  }
+}
+
+.output-title {
+  font-weight: 200 !important;
+}
+
+.output-title {
+  font-size: 16pt !important;
+}
+
+.bg-dash {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  background: transparent;
+  padding-left: 10px;
+}
+
+.body-wrapper {
+  padding-top: 0px !important;
+}
+
+/* Desktop */
+.header {
+  /* padding-left: 220px; */
+  text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header {
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .header .d-flex {
+    justify-content: left !important;
+  }
+}
+
+.header {
+  margin-bottom: 0px;
+  background-color: transparent;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.table-container {
+  background: transparent;
+  border-radius: 0px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.tab-content {
+  padding: 0px !important;
+}
+
+td {
+  color: #061018 !important;
+}
+
+thead {
+  background: #c9f31d !important;
+}
+
+th {
+  color: #061018 !important;
+}
+
+.body-wrapper {
+  padding-top: 0px !important;
+}
+
+.build-container {
+  margin: 20px 25px;
+
+}
+
+.header-section {
+  display: flex;
+  justify-content: left;
+  align-items: normal;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 0 0px;
+}
+
+.build-container h4 {
+  margin-left: 0px;
+}
+
+.form-select {
+  border-radius: 0px !important;
+}
+
+.build-container-cont {
+  margin: 10px 25px;
+  --bs-card-spacer-y: 30px;
+  --bs-card-spacer-x: 30px;
+  --bs-card-title-spacer-y: 0.5rem;
+  --bs-card-title-color: #e0e4cf;
+  --bs-card-subtitle-color: var(--bs-body-color);
+  --bs-card-border-width: 0px;
+  --bs-card-border-color: #ebf1f6;
+  --bs-card-border-radius: 0px;
+  --bs-card-box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+  --bs-card-inner-border-radius: 0px;
+  --bs-card-cap-padding-y: 15px;
+  --bs-card-cap-padding-x: 30px;
+  --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+  --bs-card-bg: var(--bs-body-bg);
+  --bs-card-img-overlay-padding: 1rem;
+  --bs-card-group-margin: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: var(--bs-card-height);
+  color: var(--bs-body-color);
+  word-wrap: break-word;
+  background-color: var(--bs-card-bg);
+  background-clip: border-box;
+  border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  border-radius: var(--bs-card-border-radius);
+  box-shadow: var(--bs-card-box-shadow);
+  padding: 20px;
+}
+
+h1 {
+  font-weight: 400 !important;
+  letter-spacing: -2px !important;
+}
+
+h1 span {
+  font-weight: 600 !important;
+}
+
+.upload-container {
+  background-color: #ffffff !important;
+}
+
+.build-container h3 {
+  padding-left: 0px;
+  font-size: 18px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
+.table-wrapper h3 {
+  padding-left: 0px !important;
+}
+
+body {
+  overflow-x: hidden !important;
+    font-family: "NewBlackTypeface", sans-serif !important;
+    background: #f3f4ef !important;
+}
+
+.upload-btn {
+    background-color: #31312f !important;
+    color: #f3f4ef !important;
+}
+
+.btn-export {
+    background-color: #31312f !important;
+    color: #f3f4ef !important;
+}
+
+.upload-content {
+  font-size: 16pt;
+  color: #31312f !important;
+}
+
+.download-btn {
+    background-color: #31312f !important;
+    color: #f3f4ef !important;
+}
+
+.bg-dash {
+  --bs-gutter-x: 0px;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-.5 * var(--bs-gutter-x));
+  margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+.row {
+  flex-wrap: wrap !important;
+}
+
+@media (max-width: 768px) {
+  .data-table {
+    display: inline-block;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  .table-wrapper {
+    margin-bottom: 30px;
+  }
+}
+
+.btn {
+  border-radius: 0px !important;
+}
+
+.tab-button.active .record-badge {
+  background-color: #c9f31d !important;
+}
+
+.tab-button.active[_ngcontent-ng-c873560065] {
+  color: #061018 !important;
+  border-bottom-color: #c9f31d !important;
+  background-color: #c9f31d;
+}
+
+:root {
+  --sidebar-bg: #fff;
+  --primary-blue: #1044B4;
+  --deep-blue: #2B346B;
+  --medium-blue: #4B548B;
+  --light-blue: #CEDDFF;
+  --pale-blue: #EFF4FF;
+  --header-gradient: linear-gradient(#CEDDFF, #EFF4FF, #FFFFFF);
+}
+
+body {
+  font-family: 'NewBlackTypeface' !important;
+}
+
+.form-control {
+  border: 1px solid #e0e4cf !important;
+}
+
+.form-cont {
+  border-radius: 0px !important;
+}
+
+.custom-btn {
+  padding: 10px 25px !important;
+  font-size: 15px !important;
+  border-radius: 50px !important;
+}
+
+.content-area {
+  padding: 20px 15px;
+}
+
+.controls-card {
+  background: white;
+  border-radius: 0px;
+  padding: 20px 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+
+.table-container {
+  overflow-x: auto;
+  box-shadow: none !important;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0px;
+  background: transparent;
+  border-radius: 0px !important;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background: #2B346B;
+  color: white;
+}
+
+.data-table th {
+  padding: 12px 10px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 15px !important;
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px !important;
+  color: #666;
+  word-break: break-word;
+  background: #fff;
+}
+
+.data-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.dropdown-label {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #2B346B;
+  display: block;
+}
+
+/* Bootstrap grid spacing fix for mobile */
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row>* {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.btn-export-all {
+    background-color: #31312f !important;
+    color: #f3f4ef !important;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1044b4 !important;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+.build-container .panel-title {
+  margin: 24px 0 8px 0 !important;
+}
+
+.build-container h2 {
+  margin-top: 0px;
+  font-size: 16px;
+      color: #31312f;
+      font-weight:300;
+}
+
+.build-container h3 {
+  margin-top: 10px;
+  color:#000;
+  font-weight: 300 !important;
+}
+
+.action-buttons {
+  margin-top: 10px;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 2px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #e7e9dc;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background-color: #2B346B;
+}
+
+.table-container {
+    scrollbar-width: thin;
+    scrollbar-color: #e7e9dc transparent;
+}
+
+i.fas.fa-upload {
+    color: #d3d3d3 !important;
+}
+
+.card{
+  border-radius: 0px !important;
+}
+
+.form-check-input:checked {
+    background-color: rgb(191, 243, 29) !important;
+    border-color: rgb(201, 243, 36) !important;
+}

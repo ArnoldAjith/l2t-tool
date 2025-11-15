@@ -1,0 +1,247 @@
+<!-- Add this to your component HTML -->
+<div class="layout-container">
+  <!-- Side Navigation -->
+  <aside id="sideNav" class="side-navigation" [class.collapsed]="isSidebarCollapsed" aria-label="Primary">
+    <div class="sidebar-header">
+      <button class="toggle-btn" (click)="toggleSidebar()" [attr.aria-expanded]="!isSidebarCollapsed"
+        aria-controls="sideNav" aria-label="Toggle sidebar">
+        <i class="fa" [ngClass]="isSidebarCollapsed ? 'fa-bars' : 'fa-times'"></i>
+      </button>
+      <h2 class="sidebar-main-title" *ngIf="!isSidebarCollapsed">
+
+        <div class="sidebar-profile">
+          <div class="profile-wrapper">
+            <img src="https://example.com/avatar.jpg" alt="User profile" class="profile-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <!-- fallback initials -->
+            <div class="profile-initials" style="display:none">{{userInitial}}</div>
+
+          </div>
+
+          <!-- Static Name -->
+          <div class="profile-name">
+
+            <button id="logoutBtn" class="btn btn-outline-primary" (click)="onSignOut()">
+              <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </button>
+
+          </div>
+        </div>
+      </h2>
+      <!-- <p class="sidebar-key-subtitle" *ngIf="!isSidebarCollapsed">Tool Kit</p> -->
+    </div>
+    <nav class="sidebar-nav" *ngIf="!isSidebarCollapsed">
+      <div class="nav-section">
+        <h3 class="nav-section-title"><i class="fas fa-bullhorn me-2"></i>Campaign</h3>
+        <ul class="nav-list">
+          <li *ngFor="let item of campaign; trackBy: trackByTitle" class="nav-item"
+            [class.active]="selectedTool === item.title" (click)="onSidebarAutomationClick(item)">
+
+            <span>{{ item.title }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-section">
+        <h3 class="nav-section-title"><i class="fas fa-key me-2"></i>Keyword</h3>
+        <ul class="nav-list">
+          <li *ngFor="let item of keyword; trackBy: trackByTitle" class="nav-item"
+            [class.active]="selectedTool === item.title" (click)="onSidebarKeywordClick(item)">
+
+            <span>{{ item.title }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <h3 class="nav-section-title"><i class="fas fa-copy me-2"></i>Ad Copy</h3>
+        <ul class="nav-list">
+          <li *ngFor="let item of adcopy; trackBy: trackByTitle" class="nav-item"
+            [class.active]="selectedTool === item.title" (click)="onSidebarAdCopyClick(item)">
+
+            <span>{{ item.title }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <h3 class="nav-section-title"><i class="fas fa-wallet me-2"></i>Budget Management</h3>
+        <ul class="nav-list">
+          <li *ngFor="let item of budgetManagement; trackBy: trackByTitle" class="nav-item"
+            [class.active]="selectedTool === item.title" (click)="onSidebarBudgetManagementClick(item)">
+
+            <span>{{ item.title }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <h3 class="nav-section-title"><i class="fas fa-balance-scale me-2"></i>Bid Management</h3>
+        <ul class="nav-list">
+          <li *ngFor="let item of bidmanagement; trackBy: trackByTitle" class="nav-item"
+            [class.active]="selectedTool === item.title" (click)="onSidebarBidManagementClick(item)">
+
+            <span>{{ item.title }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <div class="nav-section" *ngIf="role === 'admin'">
+        <h3 class="nav-section-title">Logs</h3>
+        <ul class="nav-list">
+          <li *ngFor="let item of log; trackBy: trackByTitle" class="nav-item"
+            [class.active]="selectedTool === item.title" (click)="onSidebarAutomationClick(item)">
+            <ng-container *ngIf="item.image; else iconTpl">
+              <img class="nav-thumb" [src]="'assets/img/' + item.image" alt="" />
+            </ng-container>
+            <ng-template #iconTpl>
+              <i class="fas nav-icon" [ngClass]="item.icon || 'fa-cog'" aria-hidden="true"></i>
+            </ng-template>
+            <span>{{ item.title }}</span>
+          </li>
+        </ul>
+      </div> -->
+
+      <!-- <div class="nav-section sign-out">
+        <ul class="nav-list">
+          <li class="nav-item" (click)="onSignOut()">
+
+            <i class="fas nav-icon fa-sign-out-alt" aria-hidden="true"></i>Logout
+          </li>
+        </ul>
+      </div> -->
+    </nav>
+  </aside>
+
+  <!-- Page Backdrop (mobile only, when sidebar is open) -->
+  <div class="backdrop" *ngIf="isMobile && !isSidebarCollapsed" (click)="toggleSidebar()" aria-hidden="true"></div>
+
+  <!-- Main Content Area -->
+  <div class="main-content" [class.expanded]="isSidebarCollapsed">
+    <div class="header-main">
+      <div class="header">
+        <div class="d-flex px-2 px-md-4">
+          <div class="d-flex align-items-center">
+            <div class="logo-container header-top">
+              <h1><span class="highlight">AuditIQ</span> – PitStop</h1>
+            </div>
+          </div>
+          <!-- <div class="header-right"> -->
+
+          <!-- </div> -->
+
+          <div class="header-rights"><img src="/assets/images/dat-logo-black.png" class="logo-img" alt="DAT Logo"></div>
+
+
+        </div>
+      </div>
+      <div class="header-content">
+        <div class="header-left">
+
+          <!-- Global Mobile Menu Button (outside <aside>) -->
+          <button class="global-menu-btn" *ngIf="isMobile && isSidebarCollapsed" (click)="toggleSidebar()"
+            aria-label="Open menu" aria-controls="sideNav" [attr.aria-expanded]="!isSidebarCollapsed">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <h6 class="headings sub-title" *ngIf="selectedToolKit">
+            {{ selectedToolKit || 'Automation' }}
+          </h6>
+          <div *ngIf="getSelectedToolDetails() as details">
+
+            <h1 class="title-tools mb-1"><span class="highlights">{{ details.subheader }}</span>
+              {{ details.subheader1 }}</h1>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="body-wrapper">
+      <div class="">
+        <ng-container [ngSwitch]="selectedTool">
+          <app-adcopy-check *ngSwitchCase="'Adcopy Checker'"></app-adcopy-check>
+          <app-adcopy-check *ngSwitchDefault></app-adcopy-check>
+          <app-keyword-check *ngSwitchCase="'Keywords Checker'"></app-keyword-check>
+          <app-incentive-automation *ngSwitchCase="'Incentive Adcopy Checker'"></app-incentive-automation>
+          <app-dsr *ngSwitchCase="'DSR Tracker'"></app-dsr>
+          <app-sqr *ngSwitchCase="'SQR'"></app-sqr>
+          <app-campaign-build *ngSwitchCase="'Campaign Build'"></app-campaign-build>
+          <app-l2t-deviation *ngSwitchCase="'Deviation Tracker'"></app-l2t-deviation>
+          <app-url-checker *ngSwitchCase="'Broken Link Checker'"></app-url-checker>
+          <!-- <app-complete-audit *ngSwitchCase="'Complete Audit'"></app-complete-audit> -->
+          <app-geo-targeting-consistency *ngSwitchCase="'Geo Targeting Consistency'"></app-geo-targeting-consistency>
+          <app-language-targeting-accuracy
+            *ngSwitchCase="'Language Targeting Accuracy'"></app-language-targeting-accuracy>
+          <app-missing-essential-extensions
+            *ngSwitchCase="'Missing Essential Extensions'"></app-missing-essential-extensions>
+          <app-seasonal-campaign-readiness
+            *ngSwitchCase="'Seasonal Campaign Readiness'"></app-seasonal-campaign-readiness>
+          <app-budget-allocation-efficiency
+            *ngSwitchCase="'Budget Allocation Efficiency'"></app-budget-allocation-efficiency>
+          <app-day-of-week-optimization *ngSwitchCase="'Day-Of-Week Optimization'"></app-day-of-week-optimization>
+          <app-geo-segmentation-opportunities
+            *ngSwitchCase="'Geo Segmentation Opportunities'"></app-geo-segmentation-opportunities>
+          <app-device-segmentation-opportunities
+            *ngSwitchCase="'Device Segmentation Opportunities'"></app-device-segmentation-opportunities>
+          <app-audience-performance-insights
+            *ngSwitchCase="'Audience Performance Insights'"></app-audience-performance-insights>
+          <app-search-partners-performance
+            *ngSwitchCase="'Search Partners Performance Insights'"></app-search-partners-performance>
+          <app-expired-ad-offers-running *ngSwitchCase="'Expired Ad Offers Running'"></app-expired-ad-offers-running>
+          <app-active-ad-groups-with-no-ad-copy
+            *ngSwitchCase="'Active Ad Groups with no Ad Copy'"></app-active-ad-groups-with-no-ad-copy>
+          <app-disapproved-ads-or-extensions
+            *ngSwitchCase="'Disapproved Ads or Extensions'"></app-disapproved-ads-or-extensions>
+          <app-landing-page-health *ngSwitchCase="'Landing Page Health Checker'"></app-landing-page-health>
+          <app-ad-copy-brand-compliance-spelling
+            *ngSwitchCase="'Ad Copy Brand Compliance & Spelling'"></app-ad-copy-brand-compliance-spelling>
+          <app-offensive-language-detection
+            *ngSwitchCase="'Offensive Language Detection'"></app-offensive-language-detection>
+          <app-pmax-asset-group-coverage
+            *ngSwitchCase="'PMax Asset Group Coverage Checker'"></app-pmax-asset-group-coverage>
+          <app-pmax-asset-engagement *ngSwitchCase="'PMax Asset Engagement Checker'"></app-pmax-asset-engagement>
+          <app-active-ad-groups-with-no-keywords
+            *ngSwitchCase="'Active Ad Groups with no Keywords'"></app-active-ad-groups-with-no-keywords>
+          <app-high-spend-non-converting-queries
+            *ngSwitchCase="'High-Spend Non-Converting Queries'"></app-high-spend-non-converting-queries>
+            <app-keyword-ad-copy-mismatch *ngSwitchCase="'Keyword / Ad Copy Mismatch'"></app-keyword-ad-copy-mismatch>
+            <app-keyword-landing-page-mismatch
+            *ngSwitchCase="'Keyword / Landing Page Mismatch'"></app-keyword-landing-page-mismatch>
+            <app-high-roas-search-terms-missing-in-keyword-set
+            *ngSwitchCase="'High-ROAS Search Terms Missing in Keyword Set'"></app-high-roas-search-terms-missing-in-keyword-set>
+            <app-keyword-conflicts-detection
+            *ngSwitchCase="'Keyword Conflicts Detection'"></app-keyword-conflicts-detection>
+            <app-duplicate-keywords-detection
+            *ngSwitchCase="'Duplicate Keywords Detection'"></app-duplicate-keywords-detection>
+            <!-- <app-conversion-tracking-missing *ngSwitchCase="'Conversion Tracking'"></app-conversion-tracking-missing> -->
+            
+          <app-conversion-action-with-no-conversions
+            *ngSwitchCase="'Conversion Tracking'"></app-conversion-action-with-no-conversions>
+
+          <app-zero-active-ads *ngSwitchCase="'Zero Active Ads'"></app-zero-active-ads>
+          <app-zero-active-keywords *ngSwitchCase="'Zero Active Keywords'"></app-zero-active-keywords>
+          <app-zero-active-ad-group *ngSwitchCase="'Zero Active Ad Group'"></app-zero-active-ad-group>
+          <app-wow-conversion *ngSwitchCase="'Week Over Week Conversion Change'"></app-wow-conversion>
+          <app-top-conversion *ngSwitchCase="'Top Converting Keywords'"></app-top-conversion>
+          <app-disapproved-ads *ngSwitchCase="'Disapproved Ads'"></app-disapproved-ads>
+          <app-expired-sites-link *ngSwitchCase="'Expired Site Link'"></app-expired-sites-link>
+          <app-conversion-check *ngSwitchCase="'Conversion Checker'"></app-conversion-check>
+          <app-campaign-with-no-tracking-templ
+            *ngSwitchCase="'Campaigns Missing Tracking Template'"></app-campaign-with-no-tracking-templ>
+          <app-alert-when-active-campaign-budget
+            *ngSwitchCase="'Campaign Budget > $4000'"></app-alert-when-active-campaign-budget>
+          <app-check-for-campaigns-running-on
+            *ngSwitchCase="'Campaigns Running on Broad Match Only'"></app-check-for-campaigns-running-on>
+          <app-bid-strategies *ngSwitchCase="'Bid Strategies'"></app-bid-strategies>
+          <app-language-setting *ngSwitchCase="'Language Settings Checker'"></app-language-setting>
+          <app-location-settings *ngSwitchCase="'Location Settings Checker'"></app-location-settings>
+          <app-label-checks *ngSwitchCase="'Label Checker'"></app-label-checks>
+          <app-image-extension-check *ngSwitchCase="'Image Extension Checker'"></app-image-extension-check>
+          <app-impression-check *ngSwitchCase="'Zero Spend for 3 days'"></app-impression-check>
+          <app-negative-keywords *ngSwitchCase="'Negative Keywords'"></app-negative-keywords>
+          <app-system-logs *ngSwitchCase="'System Logs'"></app-system-logs>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

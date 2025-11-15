@@ -1,0 +1,74 @@
+<!-- <div class="build-container" *ngIf="showSummary">
+  <h3>There are {{UniqueAccountName}} accounts with a total of {{noOfuniqueCampaign}} campaigns that have no ad groups.</h3>
+
+  <h3 class="title-tools">Top 10 Accounts Without Ad Groups by Campaign Count</h3>
+
+  <div class="row">
+    <div class="col-md-5">
+      <div *ngIf="!loading && !error" class="table-container">
+        <div class="table-wrapper" *ngIf="tableData as ta">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>S. No</th>
+                <th>Account ID</th>
+                <th class="text-center">Campaign Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of ta; let i = index; trackBy: trackByAccount">
+                <td>{{ i + 1 }}</td>
+                <td>{{ row.accountId }}</td>
+                <td class="text-center">{{ row.adGroupCount | number }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="build-container">
+
+  <!-- <div class="header-section">
+    <div class="action-buttons">
+      <button class="btn btn-export" (click)="exportToExcel()" [disabled]="loading || adsData.length === 0">
+        Download
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading ads data...</p>
+  </div>
+
+  <div *ngIf="!loading && !error" class="table-container">
+    <div class="table-wrapper" *ngIf="adsData.length > 0">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>S. No</th>
+            <th *ngFor="let column of columns">{{ column | titlecase }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of adsData; let i = index">
+            <td class="row-number">{{ i + 1 }}</td>
+            <td *ngFor="let column of columns" [title]="formatCellData(item[column])">
+              {{ formatCellData(item[column]) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+
+    <div *ngIf="adsData.length === 0" class="no-data">
+      <i class="fas fa-inbox"></i>
+      <h3>No Data Available</h3>
+    </div>
+
+  </div>
+
+<!-- </div> -->

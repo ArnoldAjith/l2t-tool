@@ -1,0 +1,945 @@
+<header class="header">
+  <div style="height: 100px" class="d-flex justify-content-between align-items-center px-2 px-md-4 mb-3">
+
+    <div class="d-flex align-items-center">
+      <div class="logo-container">
+        <!-- <img src="DAT-Logo-New.png" alt="Digital Analyst Team" class="logo-img" style="width: 120px;"> -->
+        <h1 class="header-txt"><img src="./assets/images/dat-black-logo-01.png" class="logo-img" alt="DAT Logo" /></h1>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+      <!-- <div class="dropdown">
+                 <button class="custom-btn custom-btn--lg" (click)="login()"><i aria-hidden="true" class="fas fa-user"></i>&nbsp; Login</button>
+                <img src="DAT-Logo-New-black.png" alt="Digital Analyst Team" class="logo-img" style="width: 150px;">
+                <div class="dropdown-menu dropdown-menu-end custom-dropdown shadow-lg" 
+                    style="width: 320px; border-radius: 12px;">
+
+                </div>
+            </div> -->
+    </div>
+  </div>
+  <div>
+    <h2><span>AuditIQ</span> – PitStop</h2>
+  </div>
+
+  <!-- <p class="subtitle">for Marketers, Agencies, and Business Owners</p> -->
+  <div class="description">
+    A workspace powered by AI tools and scripts for continuous hygiene and performance audits.
+
+    <div class="audit-q rounded-3">
+      <div class="row">
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+            <li class="d-flex align-items-start mb-2 text-space">
+              <i class="fas fa-check text-primary"></i>
+              <span>Runs automated checks across accounts</span>
+            </li>
+            <li class="d-flex align-items-start mb-2 text-space">
+              <i class="fas fa-check text-primary"></i>
+              <span>Flags hygiene issues and performance gaps</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+            <li class="d-flex align-items-start mb-2 text-space">
+              <i class="fas fa-check text-primary"></i>
+              <span>Keeps accounts clean and performing at their best</span>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- <button class="btn custom-btn custom-btn--lg upload-btn flex-fill" (click)="login()">Login</button> -->
+  <button class="custom-btn custom-btn--lg" (click)="login()">Login</button>
+
+
+
+</header>
+
+
+
+<div class="container content-layout">
+  <main class="main-sections" #mainCol>
+    <section id="automation">
+      <h2 class="section-title">Campaign</h2>
+      <div class="tools-grid">
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-wrench" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Campaign Build</h3>
+            <p class="tool-description">
+              A powerful, intuitive tool that streamlines campaign creation with clear structure - enabling you to build
+              comprehensive, consistent, and well-organized campaigns in no time.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Campaign Build:</b> A powerful, intuitive tool that streamlines campaign creation with clear structure -
+            enabling you to build comprehensive, consistent, and well-organized campaigns in no time.
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-layer-group" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Zero Active Ad Group</h3>
+            <p class="tool-description">
+              This script identifies campaigns with no active ad groups
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Zero Active Ad Group:</b> This script identifies campaigns with no active ad groups
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Location Settings Checker</h3>
+            <p class="tool-description">
+              Audit geographic targeting configurations, ensuring accurate location settings and proper exclusions
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Location Settings Checker:</b> Audit geographic targeting configurations, ensuring accurate location
+            settings and proper exclusions
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-language" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Language Settings Checker</h3>
+            <p class="tool-description">
+              Verify language targeting settings across campaigns to ensure proper localization and
+              prevent mismatched combinations.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Language Settings Checker:</b> Authenticate Campaign Language Settings With Proper
+            Localization To Prevent Mismatched Combinations
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-tags" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Label Checker</h3>
+            <p class="tool-description">
+              Organize and validate campaign labeling systems to ensure consistent conventions across
+              accounts for better reporting.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Label Checker:</b> Organize Campaign Labels To Establish Consistent Conventions Across
+            Accounts For Better Reporting
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-map-marker-alt me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Geo Targeting Consistency</h3>
+            <p class="tool-description">
+              Ensure all campaigns target the correct geographic regions consistently, without accidental mismatches.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Geo Targeting Consistency:</b> Ensure all campaigns target the correct geographic regions consistently,
+            without accidental mismatches.
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-language me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Language Targeting Accuracy</h3>
+            <p class="tool-description">
+              Verify language targeting matches the landing page language and intended audience; avoid unnecessary
+              “All Languages” targeting.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Language Targeting Accuracy:</b> Verify language targeting matches the landing page language and
+            intended audience; avoid unnecessary “All Languages” targeting.
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-puzzle-piece me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Missing Essential Extensions</h3>
+            <p class="tool-description">
+              Flag campaigns missing key ad extensions such as sitelinks, callouts, structured snippets, or price
+              extensions.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Missing Essential Extensions:</b> Flag campaigns missing key ad extensions such as sitelinks, callouts,
+            structured snippets, or price extensions.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-calendar-alt me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Seasonal Campaign Readiness</h3>
+            <p class="tool-description">
+              Ensure seasonal or event-based promotions are preloaded and ready before the relevant dates.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Seasonal Campaign Readiness:</b> Ensure seasonal or event-based promotions are preloaded and ready
+            before the relevant dates.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-users me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Audience Performance Insights</h3>
+            <p class="tool-description">
+              Find observation audiences that significantly over- or under-perform and adjust targeting or creatives
+              accordingly.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Audience Performance Insights:</b> Find observation audiences that significantly over- or under-perform
+            and adjust targeting or creatives accordingly.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-handshake me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Search Partners Performance</h3>
+            <p class="tool-description">
+              A tool that analyzes Search Partner network performance to help decide whether to include or exclude it.
+              Optimize ad spend by identifying underperforming placements.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Search Partners Performance:</b> A tool that analyzes Search Partner network performance to help decide
+            whether to include or exclude it. Optimize ad spend by identifying underperforming placements.
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+    <section id="scripts">
+
+      <h2 class="section-title">Keyword</h2>
+      <div class="tools-grid">
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-key" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Keywords Checker</h3>
+            <p class="tool-description">
+              This tool scans the campaign to identify any discrepancies or issues with the keywords used,
+              ensuring that they are relevant and correctly aligned with the campaigns. Correct makes and
+              models are used as per the account.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Keywords Checker:</b> Evaluate and identify keywords for any discrepancies to ensure
+            relevance and alignment with ad groups.
+
+          </div>
+        </div>
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-ban me-2"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Negative Keywords</h3>
+            <p class="tool-description">
+              A tool that reviews and audits negative keywords across campaigns / ad groups to prevent conflicting or
+              redundant terms. Ensures optimal targeting and maximizes ad performance. </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Negative Keywords:</b> A tool that reviews and audits negative keywords across campaigns / ad groups to
+            prevent conflicting or redundant terms. Ensures optimal targeting and maximizes ad performance.
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-minus-circle" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Zero Active Keywords</h3>
+            <p class="tool-description">
+              This script identifies ad groups with no active keywords
+
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Zero Active Keywords:</b> This script identifies ad groups with no active keywords
+
+          </div>
+        </div>
+
+
+
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-key me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Active Ad Groups With No Keywords</h3>
+            <p class="tool-description">
+              Catch ad groups missing active keywords, which indicates broken or incomplete setups.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Active Ad Groups With No Keywords:</b> Catch ad groups missing active keywords, which indicates broken
+            or incomplete setups.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-search-dollar me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">High-Spend Non-Converting Queries</h3>
+            <p class="tool-description">
+              Flag search terms with significant spend but zero conversions.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>High-Spend Non-Converting Queries:</b> Flag search terms with significant spend but zero conversions.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-align-left me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Keyword / Ad Copy Mismatch</h3>
+            <p class="tool-description">
+              Ensure top keywords appear in RSA headlines and descriptions to improve relevance and CTR.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Keyword / Ad Copy Mismatch:</b> Ensure top keywords appear in RSA headlines and descriptions to
+            improve relevance and CTR.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-link me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Keyword / Landing Page Mismatch</h3>
+            <p class="tool-description">
+              Align high-value keywords with landing page headlines and content for better Quality Score and
+              conversions.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Keyword / Landing Page Mismatch:</b> Align high-value keywords with landing page headlines
+            and content for better Quality Score and conversions.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-bullseye me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">High-ROAS Search Terms Missing in Keyword Set</h3>
+            <p class="tool-description">
+              Identifies converting queries and suggests adding them as exact match keywords to enhance targeting
+              precision.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>High-ROAS Search Terms Missing in Keyword Set:</b> Identifies converting queries and suggests adding them
+            as exact match keywords to enhance targeting precision.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-exclamation-triangle me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Keyword Conflicts</h3>
+            <p class="tool-description">
+              A tool that identifies conflicting keywords across your campaigns or ad groups. Prevents overlap and
+              ensures your ads compete efficiently without internal conflicts.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Keyword Conflicts:</b> A tool that identifies conflicting keywords across your campaigns or ad groups.
+            Prevents overlap and ensures your ads compete efficiently without internal conflicts.
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-copy me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Duplicate Keywords Detection</h3>
+            <p class="tool-description">
+              A tool that detects and flags duplicate keywords across your Google Ads account. Helps eliminate
+              redundancy to improve performance and maintain cleaner campaign structures.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Duplicate Keywords Detection:</b> A tool that detects and flags duplicate keywords across your Google Ads
+            account. Helps eliminate redundancy to improve performance and maintain cleaner campaign structures.
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </section>
+
+    <section id="automation">
+      <h2 class="section-title">Ad Copy</h2>
+      <div class="tools-grid">
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-ad" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Adcopy Checker</h3>
+            <p class="tool-description">
+              This tool analyzes ad copy to detect any potential issues with wrong makes and models used
+              in the wrong account and checks for the correct dealership used. Also checks the expired
+              offer ad copies and highlights them.
+            </p>
+          </div>
+
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Adcopy Checker:</b> Investigate and highlight ad copy for potential issues like wrong makes,
+            models, dealer names, and more.
+
+          </div>
+        </div>
+
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-robot" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Incentive Ad Copies</h3>
+            <p class="tool-description">
+              Automatically builds sitelink extensions based on the offers provided by the client team.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Incentive Ad Copies:</b> Automatically builds sitelink extensions based on the offers provided by the
+            client team.
+
+          </div>
+        </div>
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-ban" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Disapproved Ads</h3>
+            <p class="tool-description">
+              This script checks and highlights for any disapproved ads across campaigns. It helps us to
+              identify and resolve disapproved ads to ensure that campaigns are running smoothly and
+              within policy guidelines.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Disapproved Ads:</b> Flag, Highlight & Fix Disapproved Ads Across Accounts To Ensure All
+            Campaigns Are Running Smoothly
+
+          </div>
+        </div>
+
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-pause-circle" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Zero Active Ads</h3>
+            <p class="tool-description">
+              This script identifies ad groups with no active Ads
+
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Zero Active Ads:</b> This script identifies ad groups with no active Ads
+
+
+          </div>
+        </div>
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-unlink me-2"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Broken Link Checker</h3>
+            <p class="tool-description">
+              This script checks the final URLs used in your ads. If any URL returns an error (such as 404, 500, or
+              failed redirect), it lists those broken URLs along with the campaign and ad group details. This ensures
+              you can fix landing page issues before they impact performance.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Broken Link Checker:</b> This script checks the final URLs used in your ads. If any URL returns an error
+            (such as 404, 500, or failed redirect), it lists those broken URLs along with the campaign and ad group
+            details. This ensures you can fix landing page issues before they impact performance.
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-unlink" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Expired Site Link</h3>
+            <p class="tool-description">
+              This tool scans all sitelinks in your account and flags any with expired dates, ensuring your ads stay up
+              to date and relevant.
+
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Expired Site Link:</b> This tool scans all sitelinks in your account and flags any with expired dates,
+            ensuring your ads stay up to date and relevant.
+
+
+
+          </div>
+        </div>
+
+
+
+
+        <!-- <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">SQR</h3>
+                        <p class="tool-description">
+                            Search Query Report automation that analyzes search terms, identifies negative keywords, and
+                            optimizes targeting strategy automatically.
+                        </p>
+                    </div>
+                </div> -->
+
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-clock me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Expired Offer Ads</h3>
+            <p class="tool-description">
+              Identify ads referencing outdated promotions or past-dated sales.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Expired Offer Ads:</b> Identify ads referencing outdated promotions or past-dated sales.
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-pen-square me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Active Ad Groups With No Ad Copy</h3>
+            <p class="tool-description">
+              Detect ad groups with no active ads, as a result, the ad group can't serve any ads, which prevents
+              impressions, clicks, and overall campaign performance.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Active Ad Groups With No Ad Copy:</b> Detect ad groups with no active ads, as a result, the ad group
+            can't serve any ads, which prevents impressions, clicks, and overall campaign performance.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-ban me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Disapproved Ads or Extensions</h3>
+            <p class="tool-description">
+              Identify creatives or extensions rejected by Google's ad policies so they can be replaced.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Disapproved Ads or Extensions:</b> Identify creatives or extensions rejected by Google's ad policies so
+            they can be replaced.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-link me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Landing Page Health</h3>
+            <p class="tool-description">
+              Check for broken links, slow page load times (&gt;3 seconds), or non–mobile-friendly pages that hurt
+              Quality Score and conversions.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Landing Page Health:</b> Check for broken links, slow page load times (&gt;3 seconds), or
+            non–mobile-friendly pages that hurt Quality Score and conversions.
+
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-spell-check me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Ad Copy Brand &amp; Spelling Compliance</h3>
+            <p class="tool-description">
+              Detect misspellings, incorrect brand names, or competitor mentions in ad copy that violate client rules.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Ad Copy Brand &amp; Spelling Compliance:</b> Detect misspellings, incorrect brand names, or competitor
+            mentions in ad copy that violate client rules.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-exclamation-triangle me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Offensive Language Detection (Ads &amp; Keywords)</h3>
+            <p class="tool-description">
+              Identify any ads, keywords, or search terms containing swear words, slurs, or inappropriate terms.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Offensive Language Detection (Ads &amp; Keywords):</b> Identify any ads, keywords, or search terms
+            containing swear words, slurs, or inappropriate terms.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-play-circle me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">PMax Asset Engagement</h3>
+            <p class="tool-description">
+              Flag assets rated low-performing or "Poor" that limit campaign reach in Performance Max.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>PMax Asset Engagement:</b> Flag assets rated low-performing or "Poor" that limit campaign reach in
+            Performance Max.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-layer-group me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">PMax Asset Group Coverage</h3>
+            <p class="tool-description">
+              Flag missing image, video, or text formats that limit campaign reach in Performance Max.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>PMax Asset Group Coverage:</b> Flag missing image, video, or text formats that limit campaign reach in
+            Performance Max.
+            <p></p>
+
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </section>
+
+    <section id="scripts">
+      <h2 class="section-title">Budget Management</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-bell" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Campaign Budget > $4500</h3>
+            <p class="tool-description">
+              This script sends an alert whenever a campaign budget exceeds $4,500. It helps detect unauthorized changes
+              across the MCC and prevents potential overspending.
+
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Campaign Budget > $4500:</b> This script sends an alert whenever a campaign budget exceeds $4,500. It
+            helps detect unauthorized changes across the MCC and prevents potential overspending.
+
+          </div>
+        </div>
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-stopwatch me-2"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Zero Spend (3 Days) Checker</h3>
+            <p class="tool-description">
+              Analyzes all campaigns across the MCC and highlights any campaigns that haven’t spent for three
+              consecutive days. </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Zero Spend (3 Days) Checker:</b> Analyzes all campaigns across the MCC and highlights any campaigns that
+            haven’t spent for three consecutive days.
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">DSR Tracker</h3>
+            <p class="tool-description">
+              Helps generate the daily spend tracker to monitor pacing across accounts, including MTD spend utilization,
+              remaining daily average, total underspend/overspend by channel, and key spending categories.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> DSR Tracker:</b> Helps generate the daily spend tracker to monitor pacing across accounts, including MTD
+            spend utilization, remaining daily average, total underspend/overspend by channel, and key spending
+            categories.
+
+          </div>
+        </div>
+
+
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-chart-line" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Deviation Tracker</h3>
+            <p class="tool-description">
+              Uses the daily pacing tracker to identify accounts that are under pacing and verifies whether a JIRA
+              ticket with optimization steps has been created. If not, it highlights those accounts and prompts ticket
+              creation.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Deviation Tracker:</b> Uses the daily pacing tracker to identify accounts that are under pacing and
+            verifies whether a JIRA ticket with optimization steps has been created. If not, it highlights those
+            accounts and prompts ticket creation.
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-dollar-sign me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Budget Allocation Efficiency</h3>
+            <p class="tool-description">
+              Shift spend from high-CPL to low-CPL campaigns, and fund limited-by-budget winners for better ROI.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Budget Allocation Efficiency:</b> Shift spend from high-CPL to low-CPL campaigns, and fund
+            limited-by-budget winners for better ROI.
+            <p></p>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="scripts">
+      <h2 class="section-title">Bid Management</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-bullseye" aria-hidden="true"></i>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-title">Conversion Checker</h3>
+            <p class="tool-description">
+              This tool analyzes trends in true leads (focusing only on selected conversion actions) and highlights
+              accounts that show a dip in performance.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b> Conversion Checker:</b> This tool analyzes trends in true leads (focusing only on selected conversion
+            actions) and highlights accounts that show a dip in performance.
+
+          </div>
+        </div>
+
+
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-chart-line me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Conversion Tracking</h3>
+            <p class="tool-description">
+              Verifies that conversions are active and records values.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Conversion Tracking:</b> Verifies that conversions are active and records values.
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-calendar-day me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Day-of-Week Optimization</h3>
+            <p class="tool-description">
+              Identify the best and worst-performing days for CPL and conversions, and adjust dayparting accordingly.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Day-of-Week Optimization:</b> Identify the best and worst-performing days for CPL and conversions, and
+            adjust dayparting accordingly.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-clock me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Hour-of-Day Optimization</h3>
+            <p class="tool-description">
+              Highlight hours with high CPC or poor CPL for bid adjustments or scheduling changes.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Hour-of-Day Optimization:</b> Highlight hours with high CPC or poor CPL for bid adjustments or
+            scheduling changes.
+            <p></p>
+
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fas fa-globe-asia me-3"></i></div>
+          <div class="tool-content">
+            <h3 class="tool-title">Geo &amp; Device Segmentation Opportunities</h3>
+            <p class="tool-description">
+              Identify top-performing locations or devices that deserve separate targeting or bid increases.
+            </p>
+          </div>
+          <div class="tool-tooltip" id="tt-adcopy" role="tooltip">
+            <b>Geo &amp; Device Segmentation Opportunities:</b> Identify top-performing locations or devices that
+            deserve
+            separate targeting or bid increases.
+            <p></p>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+  </main>
+
+  <aside class="sidebar" #sidebarCol>
+    <h2 class="section-title">Automotive News</h2>
+    <div class="feed-wrapper" *ngIf="feedData?.length; else loading">
+      <div class="feed-list">
+        <article class="feed-card" *ngFor="let item of feedData; trackBy: trackByLink">
+          <!-- <div class="tool-icon scripts-icon"></div> -->
+          <div class="tool-content">
+            <div class="text-muted small">{{ item['Published Date'] | date:'medium' }}</div>
+
+            <h3 class="tool-title mb-2">
+              <a [href]="item.Link" target="_blank" rel="noopener">{{ item.cleanTitle }}</a>
+            </h3>
+            <p class="tool-description mb-4">
+              {{ item.cleanDescription | slice:0:180 }}<span *ngIf="(item.cleanDescription || '').length > 180">…</span>
+            </p>
+
+
+            <!-- <p class="tool-description mb-2">
+                            {{ (item.Description | stripHtml) | slice:0:180 }}
+                            <span *ngIf="((item.Description | stripHtml) || '').length > 180">…</span>
+                        </p> -->
+
+            <a class="nav-btn" [href]="item.Link" target="_blank" rel="noopener">Open</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <ng-template #loading>
+      <div class="py-4 text-center text-muted">Loading feed…</div>
+    </ng-template>
+  </aside>
+</div>

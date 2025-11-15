@@ -1,0 +1,357 @@
+<div class="build-container">
+  <div class="col-md-8 col-lg-8">
+    <div class="controls-card">
+
+      <!-- ===== Report picker ===== -->
+      <div class="row g-3 mb-3">
+        <div class="col-lg-12 col-md-12 col-12">
+          <div class="form-group border-0 mb-3">
+            <label class="headings">
+              <div class="fake-select">
+                <span class="fake-select__text">
+                  DSR Tracker
+                  <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </span>
+                <select class="overlay-select" aria-label="DSR Tools" [(ngModel)]="reportName"
+                  (change)="selectReport()">
+                  <option disabled>Select Report</option>
+                  <option value="budgetUpdate">Budget Update</option>
+                  <option value="missingAccount">Missing Account</option>
+                  <option value="trackerData">Tracker Data</option>
+                  <option value="dsr">DSR</option>
+                  <option value="summary">Summary</option>
+                  <option value="budgetGroup">Budget Grouping Spend</option>
+                </select>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DSR ===== -->
+      <ng-container *ngIf="reportName === 'dsr'">
+        <div class="row">
+          <div class="col-12 col-md-3 mb-3">
+            <h6>Report Date</h6>
+            <input type="date" class="form-control" placeholder="Date" [(ngModel)]="dsrDate" name="dsrDate">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-12">
+            <label for="dsr-file" class="upload-container d-block">
+              <div class="border-container" role="button" aria-label="Choose files">
+                <div class="icons fa-4x" aria-hidden="true">
+                  <i class="fas fa-upload" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                </div>
+                <input id="dsr-file" type="file" accept=".xlsx" multiple (change)="onMultiSelect($event)" hidden
+                  aria-hidden="true" />
+                <div class="upload-content">
+                  Drag and drop files here, or
+                  <label for="dsr-file" style="text-decoration: underline; cursor: pointer;">browse</label>
+                  your computer.
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-12 col-md-12">
+            <div *ngIf="selectedFiles.length">
+              <div *ngIf="selectedFiles[0]" class="mb-3">
+                <div><strong>DSR Today:</strong> {{ selectedFiles[0].name }}</div>
+                <progress [value]="uploadProgress[0] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="DSR Today upload progress"></progress>
+              </div>
+
+              <div *ngIf="selectedFiles[1]" class="mb-3">
+                <div><strong>Master:</strong> {{ selectedFiles[1].name }}</div>
+                <progress [value]="uploadProgress[1] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="Master upload progress"></progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- ===== Tracker Data / Budget Group ===== -->
+      <ng-container *ngIf="reportName === 'trackerData' || reportName === 'budgetGroup'">
+        <div class="row">
+          <div class="col-12 col-md-3 mb-3">
+            <h6>Date</h6>
+            <input type="date" class="form-control" placeholder="Date" [(ngModel)]="trackerDate" name="trackerDate">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <label for="tracker-files" class="upload-container d-block">
+              <div class="border-container" role="button" aria-label="Choose files">
+                <div class="icons fa-4x" aria-hidden="true">
+                  <i class="fas fa-upload" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                </div>
+                <input id="tracker-files" type="file" name="files" accept=".xlsx,.csv" multiple
+                  (change)="onMultiSelect($event)" hidden aria-hidden="true" />
+                <div class="upload-content">
+                  Drag and drop files here, or
+                  <label for="tracker-files" style="text-decoration: underline; cursor: pointer;">browse</label>
+                  your computer.
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-12 mt-3">
+            <div *ngIf="selectedFiles.length">
+              <div *ngIf="selectedFiles[0]" class="mb-3">
+                <div><strong>Google MTD:</strong> {{ selectedFiles[0].name }}</div>
+                <progress [value]="uploadProgress[0] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="Google MTD upload progress"></progress>
+              </div>
+
+              <div *ngIf="selectedFiles[1]" class="mb-3">
+                <div><strong>Bing MTD:</strong> {{ selectedFiles[1].name }}</div>
+                <progress [value]="uploadProgress[1] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="Bing MTD upload progress"></progress>
+              </div>
+
+              <div *ngIf="selectedFiles[2]" class="mb-3">
+                <div><strong>Bing Yesterday:</strong> {{ selectedFiles[2].name }}</div>
+                <progress [value]="uploadProgress[2] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="Bing Yesterday upload progress"></progress>
+              </div>
+
+              <div *ngIf="selectedFiles[3]" class="mb-3">
+                <div><strong>DSR Yesterday:</strong> {{ selectedFiles[3].name }}</div>
+                <progress [value]="uploadProgress[3] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="DSR Yesterday upload progress"></progress>
+              </div>
+
+              <div *ngIf="selectedFiles[4]" class="mb-3">
+                <div><strong>DSR Today:</strong> {{ selectedFiles[4].name }}</div>
+                <progress [value]="uploadProgress[4] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="DSR Today upload progress"></progress>
+              </div>
+
+              <div *ngIf="selectedFiles[5]" class="mb-3">
+                <div><strong>Master:</strong> {{ selectedFiles[5].name }}</div>
+                <progress [value]="uploadProgress[5] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="Master upload progress"></progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- ===== Budget Update / Missing Account ===== -->
+      <ng-container *ngIf="reportName === 'budgetUpdate' || reportName === 'missingAccount'">
+        <div class="row">
+          <div class="">
+            <label for="bu-files" class="upload-container d-block">
+              <div class="border-container" role="button" aria-label="Choose files">
+                <div class="icons fa-4x" aria-hidden="true">
+                  <i class="fas fa-upload" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                </div>
+                <input id="bu-files" type="file" name="files" accept=".xlsx,.csv" multiple
+                  (change)="onMultiSelect($event)" hidden aria-hidden="true" />
+                <div class="upload-content">
+                  Drag and drop files here, or
+                  <label for="bu-files" style="text-decoration: underline; cursor: pointer;">browse</label>
+                  your computer.
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div *ngIf="selectedFiles.length">
+              <div *ngIf="selectedFiles[0]" class="mb-3">
+                <div><strong>DSR Today:</strong> {{ selectedFiles[0].name }}</div>
+                <progress [value]="uploadProgress[0] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="DSR Today upload progress"></progress>
+              </div>
+
+              <div *ngIf="selectedFiles[1]" class="mb-3">
+                <div><strong>Master:</strong> {{ selectedFiles[1].name }}</div>
+                <progress [value]="uploadProgress[1] || 0" max="100" style="width:100%; height:10px;"
+                  aria-label="Master upload progress"></progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+
+
+
+      <!-- ===== Counters (display results) ===== -->
+    </div>
+
+    <!-- ===== Actions ===== -->
+    <div class="row g-3 mb-3">
+      <div class="button-group">
+        <button class="btn custom-btn upload-btn flex-fill" [disabled]="!fileSelected || loading"
+          (click)="trackerUpload()">
+          {{ loading ? 'Generat' : 'Generate' }}
+        </button>
+        <button class="btn custom-btn download-btn flex-fill" [disabled]="!showDownload" (click)="downloadReport()">
+          Download
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== Output / Download ===== -->
+    <div class="build mt-3" style="text-align: left;">
+      <!-- <h4 class="output-title">Output</h4> -->
+
+
+      <div class="row mt-3" *ngIf="budgetUpdateDiv">
+        <h4>Account: {{ numberOfAccounts }}</h4>
+        <h4>Increased: {{ numberOfIncreasedFromComments }}</h4>
+        <h4>Decreased: {{ numberOfDecreasedFromComments }}</h4>
+      </div>
+
+      <div class="row mt-3" *ngIf="missingAccountDiv">
+        <h4>Account: {{ numberOfAccounts }}</h4>
+        <h4>Increased: {{ numberOfIncreasedFromComments }}</h4>
+        <h4>Decreased: {{ numberOfDecreasedFromComments }}</h4>
+      </div>
+
+      <!-- ===== Budget Update Table ===== -->
+      <div class="row" *ngIf="budgetUpdateDiv">
+        <div class="col-md-12">
+          <div class="table-wrapper">
+            <table class="data-table w-100">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Account</th>
+                  <th>Adwords Id</th>
+                  <th>Service</th>
+                  <th>Yesterday Budget</th>
+                  <th>Today Budget</th>
+                  <th>Difference</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of budgetUpdateResults">
+                  <td>{{ formatDate(item.budgetUpdatePK.updateDate) }}</td>
+                  <td>{{ item.accountName }}</td>
+                  <td class="text-center">{{ item.budgetUpdatePK.adwordId }}</td>
+                  <td class="text-center">{{ item.budgetUpdatePK.service }}</td>
+                  <td class="text-center">{{ item.yesterdayBudget }}</td>
+                  <td class="text-center">{{ item.todayBudget }}</td>
+                  <td class="text-center">{{ item.difference }}</td>
+                  <td class="text-center">{{ item.comments }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Missing Account Table ===== -->
+    <div class="row" *ngIf="missingAccountDiv">
+      <div class="col-md-12">
+        <div class="table-wrapper">
+          <table class="data-table w-100">
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>Adwords Id</th>
+                <th>Service</th>
+                <th>Budget</th>
+                <th>Status</th>
+                <th>Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of missingAccountResults">
+                <td>{{ item.Client }}</td>
+                <td>{{ item.Adwords_ID }}</td>
+                <td>{{ item.Service }}</td>
+                <td>{{ item.Target_Media_Spend }}</td>
+                <td>{{ item.Status }}</td>
+                <td>{{ item.Comments }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Budget Group Tabs/Table ===== -->
+    <div class="row budgetGroupDiv" *ngIf="budgetGroupTable">
+      <div class="col-md-12">
+        <div class="card nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="#" class="nav-link" [class.active]="activeTab === 'tab1'" (click)="showBudgetGroupTable('tab1')">
+                Very High Underspend
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" [class.active]="activeTab === 'tab2'" (click)="showBudgetGroupTable('tab2')">
+                High Underspend
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" [class.active]="activeTab === 'tab3'" (click)="showBudgetGroupTable('tab3')">
+                Medium Underspend 1
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" [class.active]="activeTab === 'tab4'" (click)="showBudgetGroupTable('tab4')">
+                Medium Underspend 2
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" [class.active]="activeTab === 'tab5'" (click)="showBudgetGroupTable('tab5')">
+                High Overspend
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" [class.active]="activeTab === 'tab6'" (click)="showBudgetGroupTable('tab6')">
+                Medium Overspend
+              </a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane" [class.active]="activeTab === 'tab1'" *ngIf="activeTab === 'tab1'">
+              <div class="card-body">
+                <div class="card-title">
+                  Search (Deviation > -20% and Yest. Spend Deviation &lt; -20%)
+                </div>
+                <div class="table-wrapper">
+                  <table class="data-table w-100">
+                    <thead>
+                      <tr>
+                        <th>Account</th>
+                        <th>Budget Groupings</th>
+                        <th>Yesterday Spend</th>
+                        <th>Yesterday Spend Dev.</th>
+                        <th>Deviation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of getCurrentTabData('search', 'first', 'under')">
+                        <td>{{ item.account }}</td>
+                        <td class="budgetGroupText">{{ item.budgetGroups }}</td>
+                        <td class="text-right">{{ item.yestSpend }}</td>
+                        <td class="text-right">{{ item.yestSpendDev }}</td>
+                        <td class="text-right">{{ item.deviation }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- Add Display/Video panes if needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

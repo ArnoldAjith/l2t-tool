@@ -1,0 +1,100 @@
+.custom-btn {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-btn:hover {
+  transform: translateY(-1px);
+}
+
+.upload-btn {
+  background: #1044b4;
+}
+
+.upload-btn:hover {
+  background: #1044b4;
+}
+
+/* Status Circle Styling - matching PaidSearchAuditAgent */
+.status-circle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  vertical-align: middle;
+}
+
+.status-circle.critical {
+  background-color: #dc3545; /* Red */
+}
+
+.status-circle.needs-review {
+  background-color: #ffc107; /* Yellow */
+}
+
+.status-circle.healthy {
+  background-color: #198754; /* Green */
+}
+
+.status-circle.error {
+  background-color: #000000; /* Black */
+}
+
+.status-circle.default {
+  background-color: #6c757d; /* Gray fallback */
+}
+
+/* Card header styling to match PaidSearchAuditAgent */
+.card-header {
+  color: rgb(6, 16, 24) !important;
+  border-bottom: 0px solid rgb(201, 243, 29);
+  font-weight: 600;
+}
+
+.card-header h5 {
+  color: rgb(6, 16, 24) !important;
+  font-size: 16px !important;
+}
+
+/* Table styling to match PaidSearchAuditAgent */
+.table-hover tbody tr:hover {
+  background-color: #F2F2F2 !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.table th {
+  background-color: #f8f9fa !important;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+/* Check details container styling */
+.check-details-container table {
+  table-layout: fixed;
+  width: 100%;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.check-details-container th,
+.check-details-container td {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  max-width: 200px;
+  vertical-align: top;
+  padding: 0.5rem;
+}
+
+.check-details-container th {
+  font-weight: 600;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
